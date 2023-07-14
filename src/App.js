@@ -1,22 +1,12 @@
 import React from 'react';
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-  Card,
-  CardHeader,
-  CardBody,
-} from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+import { ChakraProvider, Box, theme } from '@chakra-ui/react';
 
 function App() {
-  return <ChakraProvider theme={theme}></ChakraProvider>;
+  return (
+    <ChakraProvider theme={theme}>
+      <Box w="100%" h="100vh" bgImage="/background.jpg" bgSize="cover"></Box>
+    </ChakraProvider>
+  );
 }
 
 export default App;
