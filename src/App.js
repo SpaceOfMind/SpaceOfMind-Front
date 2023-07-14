@@ -1,10 +1,15 @@
 import React from 'react';
 import { ChakraProvider, Box, theme } from '@chakra-ui/react';
+import Authentication from './pages/Authentication';
+import Fonts from './Fonts';
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Box w="100%" h="100vh" bgImage="/background.jpg" bgSize="cover"></Box>
+      <Fonts />
+      <Box w="100%" h="100vh" bgImage="/background.jpg" bgSize="cover">
+        <Authentication />
+      </Box>
     </ChakraProvider>
   );
 }
