@@ -1,4 +1,15 @@
 
+.main-container {
+
+    &.zoomed-in {
+        /* Additional styles for the zoomed-in view */
+    /* Here, you can apply CSS transformations to zoom in and move the content */
+    transform-origin: center bottom;
+    transition: transform 1.5s ease;
+    transform: scale(2); /* Zoom in the content by a factor of 2 (you can adjust the scale factor as needed) */
+    }
+}
+
 .add-button {
     /* Invisible by default */
     opacity: 0;

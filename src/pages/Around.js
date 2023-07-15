@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import {
     Box,
     Button,
-    Flex
+    Flex,
+    Image
   } from '@chakra-ui/react';
 import './Around.scss';
 import { transform } from 'framer-motion';
@@ -11,6 +12,12 @@ const Around = () => {
 
     // 마우스가 움직이면 버튼을 보이게 하기
     const [isHovered, setIsHovered] = useState(false);
+    // 확대 transition
+    const [isZoomedIn, setIsZoomedIn] = useState(false);
+
+    const handleZoomIn = () => {
+        setIsZoomedIn(true);
+    };
 
     useEffect(() => {
         let timer;
@@ -38,7 +45,16 @@ const Around = () => {
         bgPosition="center bottom" 
         bgImage="/planet1.png" 
         bgSize="cover"
+        className={`main-container ${isZoomedIn ? 'zoomed-in' : ''}`}
         >
+            <Image                              // 로고 placeholder
+                position="absolute"
+                top={5}
+                left={5}
+                boxSize='60px'
+                src='/robot-run.gif'
+                cursor='pointer'
+            />
             <Flex
                 position="absolute"
                 top={0}
@@ -112,8 +128,8 @@ const Around = () => {
                     h="90px"
                     colorScheme='whiteAlpha'
                     fontSize="1.8em"
-                    onClick={() => console.log('clicked!')}
-                    className={`add-button ${isHovered ? 'visible' : ''}`}
+                    onClick={handleZoomIn}
+                    className={`add-button ${isHovered && !isZoomedIn ? 'visible' : ''}`}
                 >
                 우주로 보내기
                 </Button>
