@@ -14,13 +14,44 @@ import {
 } from '@chakra-ui/react';
 import ChatIcon from '../../components/ChatIcon';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const SignUp = () => {
+  const [inputId, setInputId] = useState('');
+  const [inputPwd, setInputPwd] = useState('');
+
+  const [isValidId, setIsValidId] = useState(true);
+  const [isValidPwd, setIsValidPwd] = useState(true);
+
   const onChangeId = e => {
-    // e.target.value
+    setInputId(e.target.value);
+    setIsValidId(true);
   };
 
-  const onChangePwd = e => {};
+  const onChangePwd = e => {
+    setInputPwd(e.target.value);
+    setIsValidPwd(true);
+  };
+
+  const onConfirmSignUp = () => {
+    console.log(`id: ${inputId}, pw: ${inputPwd}`);
+
+    // 회원 가입 정보 validation 검사
+    const emailRegex =
+      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+    if (inputId === '' || !emailRegex.test(inputId)) {
+      setIsValidId(false);
+    }
+
+    if (inputPwd === '') {
+      setIsValidPwd(false);
+    }
+
+    if (isValidId && isValidPwd) {
+      console.log(`회원 가입`);
+    }
+  };
 
   return (
     <Center align="center" h="100vh">
@@ -50,6 +81,8 @@ const SignUp = () => {
                         variant="flushed"
                         placeholder="Enter New Email"
                         size="md"
+                        isInvalid={!isValidId}
+                        errorBorderColor="crimson"
                         onChange={onChangeId}
                       />
                     </Center>
@@ -58,7 +91,9 @@ const SignUp = () => {
                         variant="flushed"
                         placeholder="Enter New Password"
                         size="md"
+                        isInvalid={!isValidPwd}
                         type="password"
+                        errorBorderColor="crimson"
                         onChange={onChangePwd}
                       />
                     </Center>
@@ -69,7 +104,11 @@ const SignUp = () => {
                       </Link>
                     </Text>
                     <Center>
-                      <Button width="300px" bgColor="gray.300">
+                      <Button
+                        width="300px"
+                        bgColor="gray.300"
+                        onClick={onConfirmSignUp}
+                      >
                         회원가입
                       </Button>
                     </Center>
