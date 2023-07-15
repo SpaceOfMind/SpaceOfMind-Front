@@ -10,11 +10,12 @@ import {
   Box,
   Button,
   Divider,
+  Text,
 } from '@chakra-ui/react';
-import './Authentication.scss';
-import ChatIcon from '../components/ChatIcon';
+import ChatIcon from '../../components/ChatIcon';
+import { Link } from 'react-router-dom';
 
-const Authentication = () => {
+const SignUp = () => {
   const onChangeId = e => {
     // e.target.value
   };
@@ -37,7 +38,7 @@ const Authentication = () => {
                 <Box width="100%" position="relative" padding="10">
                   <Divider borderColor="gray.300" />
                   <AbsoluteCenter bgColor="#3b3c57" px="4">
-                    계정에 로그인하세요.
+                    계정을 등록하세요.
                   </AbsoluteCenter>
                 </Box>
               </Center>
@@ -47,23 +48,29 @@ const Authentication = () => {
                     <Center>
                       <Input
                         variant="flushed"
-                        placeholder="Enter ID"
+                        placeholder="Enter New Email"
                         size="md"
                         onChange={onChangeId}
                       />
                     </Center>
-                    <Center mb="36px">
+                    <Center>
                       <Input
                         variant="flushed"
-                        placeholder="Enter Password"
+                        placeholder="Enter New Password"
                         size="md"
                         type="password"
                         onChange={onChangePwd}
                       />
                     </Center>
+                    <Text fontSize="md">
+                      계정이 이미 있으신가요?{' '}
+                      <Link to="/login">
+                        <Text as="u">Login</Text>
+                      </Link>
+                    </Text>
                     <Center>
                       <Button width="300px" bgColor="gray.300">
-                        로그인
+                        회원가입
                       </Button>
                     </Center>
                     <Center>
@@ -72,7 +79,7 @@ const Authentication = () => {
                         width="300px"
                         bgColor="gray.300"
                       >
-                        카카오 계정으로 로그인
+                        카카오 계정으로 회원가입
                       </Button>
                     </Center>
                   </Stack>
@@ -87,4 +94,4 @@ const Authentication = () => {
   );
 };
 
-export default Authentication;
+export default SignUp;
