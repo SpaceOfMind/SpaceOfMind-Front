@@ -11,59 +11,77 @@ import {
   Button,
   Divider,
 } from '@chakra-ui/react';
+import './Authentication.scss';
+import ChatIcon from '../components/ChatIcon';
 
 const Authentication = () => {
+  const onChangeId = e => {
+    // e.target.value
+  };
+
+  const onChangePwd = e => {};
+
   return (
     <Center align="center" h="100vh">
       <Stack>
         <img src="./robot-run.gif" alt="running robot" width="50px" />
-        <Card w="500px" h="100%" bgColor="whiteAlpha.900">
-          <Center h="100%">
+        <Card w="500px" h="100%" bgColor="whiteAlpha.300">
+          <div className="card-wrapper">
             <Stack>
               <CardHeader>
-                <Heading size="lg">Welcome to your space</Heading>
+                <Heading size="lg">
+                  당신을 위한 우주에 <br /> 오신 것을 환영합니다.
+                </Heading>
               </CardHeader>
               <Center>
-                <Box width="480px" position="relative" padding="10">
+                <Box width="100%" position="relative" padding="10">
                   <Divider borderColor="gray.300" />
-                  <AbsoluteCenter bgColor="#ECEDEF" px="4">
-                    Login with your account
+                  <AbsoluteCenter bgColor="#3b3c57" px="4">
+                    계정에 로그인하세요.
                   </AbsoluteCenter>
                 </Box>
               </Center>
               <CardBody fontSize="20px">
-                <Center>
+                <Center width="100%">
                   <Stack spacing={6}>
                     <Center>
-                      <Box width="300px" bgColor="whiteAlpha.300" mx={4}>
-                        <Input placeholder="Enter ID" size="md" />
-                      </Box>
+                      <Input
+                        variant="flushed"
+                        placeholder="Enter ID"
+                        size="md"
+                        onChange={onChangeId}
+                      />
+                    </Center>
+                    <Center mb="36px">
+                      <Input
+                        variant="flushed"
+                        placeholder="Enter Password"
+                        size="md"
+                        type="password"
+                        onChange={onChangePwd}
+                      />
                     </Center>
                     <Center>
-                      <Box width="300px" bgColor="whiteAlpha.300" mx={4}>
-                        <Input
-                          placeholder="Enter Password"
-                          size="md"
-                          type="password"
-                        />
-                      </Box>
+                      <Button width="300px" bgColor="gray.300">
+                        로그인
+                      </Button>
                     </Center>
                     <Center>
-                      <Stack spacing={6}>
-                        <Divider width="400px" borderColor="gray.300" />
-                        <Center>
-                          <Button width="300px" bgColor="gray.300">
-                            Login with your account
-                          </Button>
-                        </Center>
-                      </Stack>
+                      <Button
+                        leftIcon={<ChatIcon />}
+                        width="300px"
+                        bgColor="gray.300"
+                      >
+                        카카오 계정으로 로그인
+                      </Button>
                     </Center>
                   </Stack>
                 </Center>
               </CardBody>
             </Stack>
-          </Center>
+          </div>
         </Card>
+        <Box h="50px" />
       </Stack>
     </Center>
   );
