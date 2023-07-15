@@ -13,15 +13,26 @@ import {
   Text,
 } from '@chakra-ui/react';
 import ChatIcon from '../../components/ChatIcon';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import axios from 'axios';
+import { BASE_URL } from '../../constant';
 
 const SignUp = () => {
+  const [inputName, setInputName] = useState('');
   const [inputId, setInputId] = useState('');
   const [inputPwd, setInputPwd] = useState('');
 
+  const [isValidName, setIsValidName] = useState(true);
   const [isValidId, setIsValidId] = useState(true);
   const [isValidPwd, setIsValidPwd] = useState(true);
+
+  const navigate = useNavigate();
+
+  const onChangeName = e => {
+    setInputName(e.target.value);
+    setIsValidName(true);
+  };
 
   const onChangeId = e => {
     setInputId(e.target.value);
@@ -42,21 +53,40 @@ const SignUp = () => {
 
     if (inputId === '' || !emailRegex.test(inputId)) {
       setIsValidId(false);
-    }
-
-    if (inputPwd === '') {
+    } else if (inputPwd === '') {
       setIsValidPwd(false);
+    } else if (inputName === '') {
+      setIsValidName(false);
     }
 
-    if (isValidId && isValidPwd) {
-      console.log(`회원 가입`);
+    if (isValidId && isValidPwd && isValidName) {
+      console.log(`회원 가입 진행`);
+      console.log(BASE_URL + '/auth/signUp');
+
+      axios({
+        method: 'post',
+        url: BASE_URL + '/auth/signUp',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        data: {
+          userEmail: inputId,
+          userPwd: inputPwd,
+          userName: inputName,
+          planetCode: 1,
+        },
+      }).then(res => {
+        console.log(`sign up response: ${res}`);
+        if (res.data.result === 'success') {
+          navigate('/login');
+        }
+      });
     }
   };
 
   return (
     <Center align="center" h="100vh">
       <Stack>
-        <img src="./robot-run.gif" alt="running robot" width="50px" />
         <Card w="500px" h="100%" bgColor="whiteAlpha.300">
           <div className="card-wrapper">
             <Stack>
@@ -76,6 +106,16 @@ const SignUp = () => {
               <CardBody fontSize="20px">
                 <Center width="100%">
                   <Stack spacing={6}>
+                    <Center>
+                      <Input
+                        variant="flushed"
+                        placeholder="Enter Your Name"
+                        size="md"
+                        isInvalid={!isValidName}
+                        errorBorderColor="crimson"
+                        onChange={onChangeName}
+                      />
+                    </Center>
                     <Center>
                       <Input
                         variant="flushed"
@@ -127,7 +167,6 @@ const SignUp = () => {
             </Stack>
           </div>
         </Card>
-        <Box h="50px" />
       </Stack>
     </Center>
   );
