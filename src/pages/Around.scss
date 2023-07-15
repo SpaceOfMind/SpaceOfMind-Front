@@ -1,0 +1,15 @@
+
+.add-button {
+    /* Invisible by default */
+    opacity: 0;
+    pointer-events: none;
+
+    /* Transition for a smooth fade-in effect */
+    transition: opacity 0.3s ease;
+
+    /* Handle visibility when the main container is hovered */
+    &.visible {
+        opacity: 1;
+        pointer-events: all;
+    }
+}
