@@ -5,7 +5,7 @@ import {
   Center,
   Heading,
   Stack,
-  Text,
+  AbsoluteCenter,
   Input,
   Box,
   Button,
@@ -15,27 +15,37 @@ import {
 const Authentication = () => {
   return (
     <Center align="center" h="100vh">
-      <Card w="550px" h="64%" bgColor="whiteAlpha.900">
+      <Card w="500px" h="64%" bgColor="whiteAlpha.900">
         <Center h="100%">
           <Stack>
             <CardHeader>
               <Heading size="lg">Welcome to your space</Heading>
             </CardHeader>
+            <Center>
+              <Box width="480px" position="relative" padding="10">
+                <Divider borderColor="gray.300" />
+                <AbsoluteCenter bgColor="#ECEDEF" px="4">
+                  Login with your account
+                </AbsoluteCenter>
+              </Box>
+            </Center>
             <CardBody fontSize="20px">
               <Center>
                 <Stack spacing={6}>
                   <Center>
-                    <Divider width="400px" borderColor="gray.300" />
+                    <Box width="300px" bgColor="whiteAlpha.300" mx={4}>
+                      <Input placeholder="Enter ID" size="md" />
+                    </Box>
                   </Center>
-                  <Text pt="3" fontSize="sm">
-                    당신의 계정으로 로그인하세요.
-                  </Text>
-                  <Box width="400px" bgColor="whiteAlpha.300" mx={4}>
-                    <Input placeholder="Enter ID" size="md" />
-                  </Box>
-                  <Box width="400px" bgColor="whiteAlpha.300" mx={4}>
-                    <Input placeholder="Enter Password" size="md" />
-                  </Box>
+                  <Center>
+                    <Box width="300px" bgColor="whiteAlpha.300" mx={4}>
+                      <Input
+                        placeholder="Enter Password"
+                        size="md"
+                        type="password"
+                      />
+                    </Box>
+                  </Center>
                   <Center>
                     <Stack spacing={6}>
                       <Divider width="400px" borderColor="gray.300" />
