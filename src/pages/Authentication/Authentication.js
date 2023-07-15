@@ -14,14 +14,44 @@ import {
 } from '@chakra-ui/react';
 import './Authentication.scss';
 import ChatIcon from '../../components/ChatIcon';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
 
 const Authentication = () => {
+  const [inputId, setInputId] = useState('');
+  const [inputPwd, setInputPwd] = useState('');
+
+  const navigate = useNavigate();
+
   const onChangeId = e => {
-    // e.target.value
+    setInputId(e.target.value);
   };
 
-  const onChangePwd = e => {};
+  const onChangePwd = e => {
+    setInputPwd(e.target.value);
+  };
+
+  const onConfirmLogin = () => {
+    axios
+      .post(
+        '/auth/login',
+        { userEmail: inputId, userPwd: inputPwd },
+        {
+          headers: { 'Content-type': 'application/json' },
+          withCredentials: true,
+        }
+      )
+      .then(res => {
+        console.log(`login result: ${JSON.stringify(res)}`);
+        if (res.data.result === 'success') {
+          navigate('/');
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   return (
     <Center align="center" h="100vh">
@@ -70,7 +100,11 @@ const Authentication = () => {
                       </Link>
                     </Text>
                     <Center>
-                      <Button width="300px" bgColor="gray.300">
+                      <Button
+                        width="300px"
+                        bgColor="gray.300"
+                        onClick={onConfirmLogin}
+                      >
                         로그인
                       </Button>
                     </Center>
