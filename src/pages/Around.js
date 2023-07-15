@@ -6,7 +6,7 @@ import {
     Image
   } from '@chakra-ui/react';
 import './Around.scss';
-import { transform } from 'framer-motion';
+import Satellite1 from '../components/Satellite1';
 
 const Around = () => {
 
@@ -19,6 +19,26 @@ const Around = () => {
         setIsZoomedIn(true);
     };
 
+    // 확대 시 component
+    const CreateNewObject = () => {
+        
+        return (
+            <Box>
+                <Flex
+                    position="absolute"
+                    bottom={0}
+                    left={0}
+                    align="center"
+                    justify="center"
+                    w="60%"
+                    h="30%"
+                >
+                    <Satellite1 />
+                </Flex>
+            </Box>
+        );
+    };
+
     useEffect(() => {
         let timer;
         const handleMouseMove = () => {
@@ -27,7 +47,7 @@ const Around = () => {
     
           timer = setTimeout(() => {
             setIsHovered(false);
-          }, 5000); // 5000ms 이후 안 보임
+          }, 3000); // 3000ms 이후 안 보임
         };
     
         window.addEventListener('mousemove', handleMouseMove);
@@ -43,7 +63,7 @@ const Around = () => {
         w="100%" 
         h="100vh" 
         bgPosition="center bottom" 
-        bgImage="/planet1.png" 
+        bgImage="/planet_1.png" 
         bgSize="cover"
         className={`main-container ${isZoomedIn ? 'zoomed-in' : ''}`}
         >
@@ -59,7 +79,7 @@ const Around = () => {
                 position="absolute"
                 top={0}
                 right={0}
-                w="25%"
+                w="30%"
                 h="8%"
                 align='center'
                 justify='space-around'
@@ -112,6 +132,22 @@ const Around = () => {
                         bg: 'whiteAlpha.200'
                     }}
                 >
+                    마음기록
+                </Button>
+                <Button
+                    color='whiteAlpha.600'
+                    fontSize='1.2em'
+                    bgColor='transparent'
+                    _hover={{
+                        color: 'whiteAlpha.900',
+                        transform: 'scale(1.1)'
+                    }}
+                    _active={{
+                        color: 'whiteAlpha.900',
+                        transform: 'scale(1.1)',
+                        bg: 'whiteAlpha.200'
+                    }}
+                >
                     내 행성
                 </Button>
             </Flex>
@@ -126,7 +162,20 @@ const Around = () => {
                 <Button 
                     w="300px" 
                     h="90px"
-                    colorScheme='whiteAlpha'
+                    color='white'
+                    bgColor='transparent'
+                    border='2px'
+                    borderColor='white'
+                    _hover={{
+                        color: 'whiteAlpha.900',
+                        bg: 'whiteAlpha.200',
+                        transform: 'scale(1.05)'
+                    }}
+                    _active={{
+                        color: 'whiteAlpha.900',
+                        transform: 'scale(1.05)',
+                        bg: 'whiteAlpha.400'
+                    }}
                     fontSize="1.8em"
                     onClick={handleZoomIn}
                     className={`add-button ${isHovered && !isZoomedIn ? 'visible' : ''}`}
