@@ -1,10 +1,11 @@
 
 .container {
-    width: 400px; // Adjust the width and height according to your sprite frame size
-    height: 200px;
+    // width: 300px; // Adjust the width and height according to your sprite frame size
+    // height: 200px;
     background-image: url('../../public/satellite_1.png'); // Replace with the actual path to your PNG sprite
     background-size: contain;
     background-repeat: no-repeat;
+    cursor: pointer;
     // background-size: 800% 100%; // Adjust this value based on the number of frames in the sprite
     // animation: spriteAnimation 1s steps(8) infinite; // Adjust the animation duration and steps based on your sprite
 }

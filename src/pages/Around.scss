@@ -1,6 +1,9 @@
 
 .main-container {
 
+    transform-origin: center bottom;
+    transition: transform 2s ease;
+
     &.zoomed-in {
         /* Additional styles for the zoomed-in view */
     /* Here, you can apply CSS transformations to zoom in and move the content */
@@ -8,6 +11,7 @@
     transition: transform 1.5s ease;
     transform: scale(2); /* Zoom in the content by a factor of 2 (you can adjust the scale factor as needed) */
     }
+
 }
 
 .add-button {
@@ -20,6 +24,18 @@
 
     /* Handle visibility when the main container is hovered */
     &.visible {
+        opacity: 1;
+        pointer-events: all;
+    }
+}
+
+.new-container {
+    /* Invisible by default */
+    opacity: 0;
+    pointer-events: none;
+
+    &.visible {
+
         opacity: 1;
         pointer-events: all;
     }

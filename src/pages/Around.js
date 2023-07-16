@@ -3,10 +3,14 @@ import {
     Box,
     Button,
     Flex,
-    Image
+    Image,
+    Grid,
+    GridItem,
+    Spacer,
+    Input
   } from '@chakra-ui/react';
 import './Around.scss';
-import Satellite1 from '../components/Satellite1';
+import CreateNewObject from '../components/CreateNewObject';
 
 const Around = () => {
 
@@ -19,24 +23,8 @@ const Around = () => {
         setIsZoomedIn(true);
     };
 
-    // 확대 시 component
-    const CreateNewObject = () => {
-        
-        return (
-            <Box>
-                <Flex
-                    position="absolute"
-                    bottom={0}
-                    left={0}
-                    align="center"
-                    justify="center"
-                    w="60%"
-                    h="30%"
-                >
-                    <Satellite1 />
-                </Flex>
-            </Box>
-        );
+    const handleZoomOut = () => {
+        setIsZoomedIn(false);
     };
 
     useEffect(() => {
@@ -183,6 +171,7 @@ const Around = () => {
                 우주로 보내기
                 </Button>
             </Flex>
+            <CreateNewObject isZoomedIn={isZoomedIn} handleZoomOut={handleZoomOut} />
         </Box>
     )
 
