@@ -12,8 +12,8 @@ import Archive from './pages/Archive/Archive';
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <CookiesProvider>
+    <CookiesProvider>
+      <ChakraProvider theme={theme}>
         <Box w="100%" h="100vh" bgImage="/background.jpg" bgSize="cover">
           <BrowserRouter>
             <Routes>
@@ -23,8 +23,8 @@ function App() {
             </Routes>
           </BrowserRouter>
         </Box>
-      </CookiesProvider>
-    </ChakraProvider>
+      </ChakraProvider>
+    </CookiesProvider>
   );
 }
 
