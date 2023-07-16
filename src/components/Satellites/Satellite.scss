@@ -2,7 +2,23 @@
 .container {
     // width: 300px; // Adjust the width and height according to your sprite frame size
     // height: 200px;
-    background-image: url('../../public/satellite_1.png'); // Replace with the actual path to your PNG sprite
+
+    &.satellite-1 {
+        background-image: url('../../../public/satellite_1.png');
+    }
+
+    &.satellite-2 {
+        background-image: url('../../../public/satellite_2.png');
+    }
+
+    &.satellite-3 {
+        background-image: url('../../../public/satellite_3.png');
+    }
+
+    &.satellite-4 {
+        background-image: url('../../../public/satellite_4.png');
+    }
+
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;

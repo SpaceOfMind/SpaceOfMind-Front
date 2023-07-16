@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Flex,
     Button,
@@ -6,12 +6,26 @@ import {
     Input,
     Spacer
 } from '@chakra-ui/react';
-import Satellite1 from './Satellite1';
+import { Satellite1, Satellite2, Satellite3, Satellite4 } from './Satellites/Satellite';
 import { Icon } from '@iconify/react';
 
 // 확대 시 component
 const CreateNewObject = ({ isZoomedIn, handleZoomOut }) => {
 
+    // satellite 종류
+    const satellites = [<Satellite1 />, <Satellite2 />, <Satellite3 />, <Satellite4 />];
+
+    const [currentSatelliteIndex, setCurrentSatelliteIndex] = useState(0);
+
+    const changeSatellite = () => {
+        setCurrentSatelliteIndex((prevIndex) => (prevIndex + 1) % satellites.length);
+    }
+
+    useEffect(() => {
+        console.log(`Current Satellite Index: ${currentSatelliteIndex}`);
+    }, [currentSatelliteIndex]);
+
+    // input 관리
     const [inputs, setInputs] = useState({
         title: '',
         content: ''
@@ -183,7 +197,9 @@ const CreateNewObject = ({ isZoomedIn, handleZoomOut }) => {
                 bottom={2}
                 zIndex={3}
             >
-                <Satellite1 />
+                <div onClick={changeSatellite}>
+                    {satellites[currentSatelliteIndex]}
+                </div>
                 <Spacer bg='transparent' w='300px'></Spacer>       {/* hard coding 괜찮은가 */}
             </Flex>
         </Flex>
