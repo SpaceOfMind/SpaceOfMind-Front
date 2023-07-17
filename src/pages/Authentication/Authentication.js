@@ -5,6 +5,7 @@ import {
   Center,
   Heading,
   Stack,
+  Text,
   AbsoluteCenter,
   Input,
   Box,
@@ -12,14 +13,44 @@ import {
   Divider,
 } from '@chakra-ui/react';
 import './Authentication.scss';
-import ChatIcon from '../components/ChatIcon';
+import ChatIcon from '../../components/ChatIcon';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
 
 const Authentication = () => {
+  const [inputId, setInputId] = useState('');
+  const [inputPwd, setInputPwd] = useState('');
+
+  const navigate = useNavigate();
+
   const onChangeId = e => {
-    // e.target.value
+    setInputId(e.target.value);
   };
 
-  const onChangePwd = e => {};
+  const onChangePwd = e => {
+    setInputPwd(e.target.value);
+  };
+
+  const onConfirmLogin = () => {
+    axios
+      .post(
+        '/auth/login',
+        { userEmail: inputId, userPwd: inputPwd },
+        {
+          headers: { 'Content-type': 'application/json' },
+          withCredentials: true,
+        }
+      )
+      .then(res => {
+        if (res.data.result === 'success') {
+          navigate('/');
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   return (
     <Center align="center" h="100vh">
@@ -47,12 +78,12 @@ const Authentication = () => {
                     <Center>
                       <Input
                         variant="flushed"
-                        placeholder="Enter ID"
+                        placeholder="Enter Email"
                         size="md"
                         onChange={onChangeId}
                       />
                     </Center>
-                    <Center mb="36px">
+                    <Center>
                       <Input
                         variant="flushed"
                         placeholder="Enter Password"
@@ -61,8 +92,18 @@ const Authentication = () => {
                         onChange={onChangePwd}
                       />
                     </Center>
+                    <Text fontSize="md">
+                      계정이 없으신가요?{' '}
+                      <Link to="/signUp">
+                        <Text as="u">Sign Up</Text>
+                      </Link>
+                    </Text>
                     <Center>
-                      <Button width="300px" bgColor="gray.300">
+                      <Button
+                        width="300px"
+                        bgColor="gray.300"
+                        onClick={onConfirmLogin}
+                      >
                         로그인
                       </Button>
                     </Center>

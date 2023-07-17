@@ -3,18 +3,32 @@ import '@fontsource/open-sans/700.css';
 
 import React from 'react';
 import { ChakraProvider, Box } from '@chakra-ui/react';
-import Authentication from './pages/Authentication';
+import Authentication from './pages/Authentication/Authentication';
 import theme from './theme';
+
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import SignUp from './pages/SignUp/SignUp';
+import { CookiesProvider } from 'react-cookie';
+import Archive from './pages/Archive/Archive';
+import CustomButton from './components/CustomButton';
 import Around from './pages/Around';
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <Box w="100%" h="100vh" bgImage="/background.jpg" bgSize="cover">
-        {/* <Authentication /> */}
-        <Around />
-      </Box>
-    </ChakraProvider>
+    <CookiesProvider>
+      <ChakraProvider theme={theme}>
+        <Box w="100%" h="100vh" bgImage="/background.jpg" bgSize="cover">
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Around />} />
+              <Route path="/archive" element={<Archive />} />
+              <Route path="/login" element={<Authentication />} />
+              <Route path="/signUp" element={<SignUp />} />
+            </Routes>
+          </BrowserRouter>
+        </Box>
+      </ChakraProvider>
+    </CookiesProvider>
   );
 }
 
