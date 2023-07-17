@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Button,
-  Flex,
-  Image,
-} from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Image } from '@chakra-ui/react';
 import './Around.scss';
 import CreateNewObject from '../../components/CreateNewObject';
 import { useNavigate } from 'react-router-dom';
@@ -48,10 +43,10 @@ const Around = () => {
   const navigate = useNavigate();
 
   const moveToArchivePage = async () => {
-    fetchData().then(() => navigate('/archive'));
+    fetchArchiveData().then(() => navigate('/archive'));
   };
 
-  const fetchData = async () => {
+  const fetchArchiveData = async () => {
     try {
       const res = await axios({
         method: 'get',
@@ -116,7 +111,6 @@ const Around = () => {
         position="absolute"
         top={0}
         right={0}
-        w="30%"
         h="8%"
         align="center"
         justify="space-around"
@@ -221,6 +215,13 @@ const Around = () => {
           우주로 보내기
         </Button>
       </Flex>
+
+      <Center h="100vh">
+        <Button onClick={() => navigate({ pathname: '/detail/around/' + '1' })}>
+          인공위성 상세 페이지
+        </Button>
+      </Center>
+
       <CreateNewObject isZoomedIn={isZoomedIn} handleZoomOut={handleZoomOut} />
     </Box>
   );

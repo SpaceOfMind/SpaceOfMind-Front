@@ -11,6 +11,7 @@ import SignUp from './pages/SignUp/SignUp';
 import { CookiesProvider } from 'react-cookie';
 import Archive from './pages/Archive/Archive';
 import Around from './pages/Around/Around';
+import DetailAround from './pages/Detail/DetailAround';
 
 function App() {
   return (
@@ -20,6 +21,10 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Around />} />
+              <Route
+                path="/detail/around/:objectId"
+                element={<DetailAround />}
+              />
               <Route path="/archive" element={<Archive />} />
               <Route path="/login" element={<Authentication />} />
               <Route path="/signUp" element={<SignUp />} />
