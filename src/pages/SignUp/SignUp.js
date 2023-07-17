@@ -11,55 +11,78 @@ import {
   Button,
   Divider,
   Text,
+  Image,
+  Flex,
 } from '@chakra-ui/react';
 import ChatIcon from '../../components/ChatIcon';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../../constant';
+import { useDisclosure } from '@chakra-ui/hooks';
+import {
+  Modal,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  ModalCloseButton,
+  ModalBody,
+} from '@chakra-ui/modal';
 
 const SignUp = () => {
-  const [inputName, setInputName] = useState('');
-  const [inputId, setInputId] = useState('');
-  const [inputPwd, setInputPwd] = useState('');
+  const imageUrls = [
+    'planet_sphere1.png',
+    'planet_sphere2.png',
+    'planet_sphere3.png',
+    'planet_sphere4.png',
+  ];
+
+  const [inputs, setInputs] = useState({
+    name: '',
+    email: '',
+    pwd: '',
+  });
+
+  const [colorCode, setColorCode] = useState(null);
 
   const [isValidName, setIsValidName] = useState(true);
-  const [isValidId, setIsValidId] = useState(true);
+  const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPwd, setIsValidPwd] = useState(true);
 
   const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const onChangeName = e => {
-    setInputName(e.target.value);
-    setIsValidName(true);
+  const { name, email, pwd } = inputs;
+
+  const onChangeInput = e => {
+    const { value, name } = e.target;
+    setInputs({ ...inputs, [name]: value });
+    if (name === 'name') {
+      setIsValidName(true);
+    } else if (name === 'email') {
+      setIsValidEmail(true);
+    } else if (name === 'pwd') {
+      setIsValidPwd(true);
+    }
   };
 
-  const onChangeId = e => {
-    setInputId(e.target.value);
-    setIsValidId(true);
-  };
-
-  const onChangePwd = e => {
-    setInputPwd(e.target.value);
-    setIsValidPwd(true);
-  };
-
-  const onConfirmSignUp = () => {
-    console.log(`id: ${inputId}, pw: ${inputPwd}`);
-
+  const onOpenModalCheck = () => {
     // 회원 가입 정보 validation 검사
     const emailRegex =
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
-    if (inputId === '' || !emailRegex.test(inputId)) {
-      setIsValidId(false);
-    } else if (inputPwd === '') {
-      setIsValidPwd(false);
-    } else if (inputName === '') {
-      setIsValidName(false);
-    }
+    setIsValidEmail(!(!email || !emailRegex.test(email)));
+    setIsValidPwd(!!pwd); // Assuming an empty string is considered invalid
+    setIsValidName(!!name); // Assuming an empty string is considered invalid
 
-    if (isValidId && isValidPwd && isValidName) {
+    if (!(!email || !emailRegex.test(email)) && !!pwd && !!name) {
+      onOpen();
+    }
+  };
+
+  const onConfirmSignUp = () => {
+    if (colorCode) {
       console.log(`회원 가입 진행`);
       console.log(BASE_URL + '/auth/signUp');
 
@@ -70,10 +93,10 @@ const SignUp = () => {
           'Content-type': 'application/json',
         },
         data: {
-          userEmail: inputId,
-          userPwd: inputPwd,
-          userName: inputName,
-          planetCode: 1,
+          userEmail: email,
+          userPwd: pwd,
+          userName: name,
+          planetCode: colorCode,
         },
       }).then(res => {
         console.log(`sign up response: ${res}`);
@@ -108,33 +131,39 @@ const SignUp = () => {
                   <Stack spacing={6}>
                     <Center>
                       <Input
+                        name="name"
+                        value={name}
                         variant="flushed"
                         placeholder="Enter Your Name"
                         size="md"
                         isInvalid={!isValidName}
                         errorBorderColor="crimson"
-                        onChange={onChangeName}
+                        onChange={onChangeInput}
                       />
                     </Center>
                     <Center>
                       <Input
+                        name="email"
+                        value={email}
                         variant="flushed"
                         placeholder="Enter New Email"
                         size="md"
-                        isInvalid={!isValidId}
+                        isInvalid={!isValidEmail}
                         errorBorderColor="crimson"
-                        onChange={onChangeId}
+                        onChange={onChangeInput}
                       />
                     </Center>
                     <Center>
                       <Input
+                        name="pwd"
+                        value={pwd}
                         variant="flushed"
                         placeholder="Enter New Password"
                         size="md"
                         isInvalid={!isValidPwd}
                         type="password"
                         errorBorderColor="crimson"
-                        onChange={onChangePwd}
+                        onChange={onChangeInput}
                       />
                     </Center>
                     <Text fontSize="md">
@@ -147,10 +176,67 @@ const SignUp = () => {
                       <Button
                         width="300px"
                         bgColor="gray.300"
-                        onClick={onConfirmSignUp}
+                        onClick={onOpenModalCheck}
                       >
                         회원가입
                       </Button>
+                      <Modal
+                        closeOnOverlayClick={false}
+                        isOpen={isOpen}
+                        onClose={onClose}
+                      >
+                        <ModalOverlay />
+                        <ModalContent
+                          mt="10%"
+                          className="modal-planet-selection-wrapper"
+                          bgColor="gray.300"
+                          p="5"
+                        >
+                          <ModalHeader>
+                            {inputs.name}님, <br />
+                            당신만의 우주에 오신 것을 환영합니다. <br />
+                            당신의 행성을 선택하세요.
+                          </ModalHeader>
+                          <ModalCloseButton />
+                          <ModalBody mt="10" mb="10">
+                            <Center>
+                              <Flex gap={4} dir="row">
+                                {imageUrls.map((url, colorIndex) => {
+                                  return (
+                                    <Image
+                                      key={colorIndex}
+                                      position="relative"
+                                      src={url}
+                                      w={20}
+                                      h={20}
+                                      border={
+                                        colorIndex === colorCode
+                                          ? 'solid #718fa7'
+                                          : 'transparent'
+                                      }
+                                      borderRadius="10px"
+                                      onClick={() => {
+                                        setColorCode(colorIndex);
+                                      }}
+                                    />
+                                  );
+                                })}
+                              </Flex>
+                            </Center>
+                          </ModalBody>
+                          <ModalFooter>
+                            <Button
+                              mr="2"
+                              colorScheme="blue"
+                              onClick={onConfirmSignUp}
+                              disabled={colorCode === null}
+                            >
+                              선택한 행성으로 회원가입
+                            </Button>
+                            <Button onClick={onClose}>취소</Button>
+                          </ModalFooter>
+                        </ModalContent>
+                      </Modal>
                     </Center>
                     <Center>
                       <Button
