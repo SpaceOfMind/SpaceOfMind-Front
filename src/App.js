@@ -8,21 +8,25 @@ import theme from './theme';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SignUp from './pages/SignUp/SignUp';
 import { CookiesProvider } from 'react-cookie';
+import Archive from './pages/Archive/Archive';
+import CustomButton from './components/CustomButton';
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <CookiesProvider>
+    <CookiesProvider>
+      <ChakraProvider theme={theme}>
         <Box w="100%" h="100vh" bgImage="/background.jpg" bgSize="cover">
           <BrowserRouter>
             <Routes>
+              <Route path="/" element={<CustomButton />} />
+              <Route path="/archive" element={<Archive />} />
               <Route path="/login" element={<Authentication />} />
               <Route path="/signUp" element={<SignUp />} />
             </Routes>
           </BrowserRouter>
         </Box>
-      </CookiesProvider>
-    </ChakraProvider>
+      </ChakraProvider>
+    </CookiesProvider>
   );
 }
 

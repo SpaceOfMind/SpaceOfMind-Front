@@ -43,7 +43,6 @@ const Authentication = () => {
         }
       )
       .then(res => {
-        console.log(`login result: ${JSON.stringify(res)}`);
         if (res.data.result === 'success') {
           navigate('/');
         }
