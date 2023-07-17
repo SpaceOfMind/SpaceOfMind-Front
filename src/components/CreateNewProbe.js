@@ -8,6 +8,7 @@ import {
     Grid,
 } from '@chakra-ui/react';
 import { Probe1, Probe2, Probe3, Probe4 } from "./Probes/Probe";
+import axios from 'axios';
 
 export const CreateNewProbeInput = ({ handleZoomOut, fetchCurrentProbeCode }) => {
 
@@ -49,11 +50,37 @@ export const CreateNewProbeInput = ({ handleZoomOut, fetchCurrentProbeCode }) =>
 
             const probeCode = fetchCurrentProbeCode();
 
-            console.log("보낸 탐사선 코드: ", probeCode);
-        }
+            axios
+                .post(
+                    '/archive/postInfo',
+                    { userId: 2,                    // dummy
+                        aroundCode: probeCode, 
+                        title: title, 
+                        content: content,
+                        isAround: 0
+                    },
+                    {
+                    headers: { 'Content-type': 'application/json' },
+                    // withCredentials: true,
+                    }
+                )
+                .then(res => {
+                    if (res.data.result === 'success') {
+                        console.log("탐사선 발사 성공");
 
-        // reset
-        onReset();
+                        // reset
+                        onReset();
+                    } else if (res.data.result === 'full') {
+                        // orbit 모두 찼음
+                        console.log("탐사선 발사 실패: 궤도 모두 찼음");
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+                
+                console.log("보낸 탐사선 코드: ", probeCode);
+        }
     }
 
     return (

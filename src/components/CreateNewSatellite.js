@@ -50,31 +50,38 @@ export const CreateNewSatelliteInput = ({ handleZoomOut, fetchCurrentSatelliteCo
 
             const satelliteCode = fetchCurrentSatelliteCode();
 
-            /*axios
+            axios
                 .post(
-                    '/around/postInfo',
-                    { userId: '' , aroundCode: '', orbitId: '', title: title, content: content},
+                    '/archive/postInfo',
+                    { userId: 2,                    // dummy
+                        aroundCode: satelliteCode, 
+                        title: title, 
+                        content: content,
+                        isAround: 1
+                    },
                     {
                     headers: { 'Content-type': 'application/json' },
-                    withCredentials: true,
+                    // withCredentials: true,
                     }
                 )
                 .then(res => {
                     if (res.data.result === 'success') {
                         console.log("위성 발사 성공");
-                        navigate('/');
+
+                        // reset
+                        onReset();
+                    } else if (res.data.result === 'full') {
+                        // orbit 모두 찼음
+                        console.log("위성 발사 실패: 궤도 모두 찼음");
                     }
                 })
                 .catch(err => {
                     console.log(err);
-                });*/
+                });
                 
                 console.log("보낸 위성 코드: ", satelliteCode);
 
                     }
-
-        // reset
-        onReset();
     }
 
     return (
