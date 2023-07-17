@@ -7,7 +7,7 @@ import {
     Spacer
 } from '@chakra-ui/react';
 import { Satellite1, Satellite2, Satellite3, Satellite4 } from './Satellites/Satellite';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export const CreateNewSatelliteInput = ({ handleZoomOut, fetchCurrentSatelliteCode }) => {
@@ -182,7 +182,7 @@ export const CreateNewSatelliteImg = ({ updateCurrentSatelliteCode }) => {
         if (currentSatelliteIndex === 0) {
             updateCurrentSatelliteCode(currentSatelliteIndex);
         }
-    }, [currentSatelliteIndex]);
+    }, [currentSatelliteIndex, updateCurrentSatelliteCode]);
 
 
     return (

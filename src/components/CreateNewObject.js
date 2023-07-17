@@ -29,11 +29,10 @@ const CreateNewObject = ({ isZoomedIn, handleZoomOut }) => {
         }
     };
 
-    // 인공위성 or 탐사선 code
+    // 인공위성 code
     const [currentSatelliteCode, setCurrentSatelliteCode] = useState(0);
 
     const updateCurrentSatelliteCode = (newCode) => {
-        
         setCurrentSatelliteCode(newCode);
     }
 
@@ -41,6 +40,17 @@ const CreateNewObject = ({ isZoomedIn, handleZoomOut }) => {
         return currentSatelliteCode;
     }
     
+    // 탐사선 code
+    const [currentProbeCode, setCurrentProbeCode] = useState(0);
+
+    const updateCurrentProbeCode = (newCode) => {
+        setCurrentProbeCode(newCode);
+    }
+
+    const fetchCurrentProbeCode = () => {
+        return currentProbeCode;
+    }
+
     return (
         <Flex
             position="absolute"
@@ -106,7 +116,10 @@ const CreateNewObject = ({ isZoomedIn, handleZoomOut }) => {
                             handleZoomOut={handleZoomOut} 
                             fetchCurrentSatelliteCode={fetchCurrentSatelliteCode} 
                         /> 
-                    : <CreateNewProbeInput handleZoomOut={handleZoomOut} />}
+                    : <CreateNewProbeInput 
+                        handleZoomOut={handleZoomOut} 
+                        fetchCurrentProbeCode={fetchCurrentProbeCode}
+                    />}
             </Flex>
             <Flex 
                 position='absolute'
@@ -114,8 +127,12 @@ const CreateNewObject = ({ isZoomedIn, handleZoomOut }) => {
                 zIndex={3}
             >
                 {showCreateNewSatellite 
-                    ? <CreateNewSatelliteImg updateCurrentSatelliteCode={updateCurrentSatelliteCode} /> 
-                    : <CreateNewProbeImg />}
+                    ? <CreateNewSatelliteImg 
+                            updateCurrentSatelliteCode={updateCurrentSatelliteCode} 
+                        /> 
+                    : <CreateNewProbeImg 
+                        updateCurrentProbeCode={updateCurrentProbeCode}
+                    />}
                 <Spacer bg='transparent' w='300px'></Spacer>       {/* hard coding 괜찮은가 */}
             </Flex>
         </Flex>

@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { Probe1, Probe2, Probe3, Probe4 } from "./Probes/Probe";
 
-export const CreateNewProbeInput = ({ handleZoomOut }) => {
+export const CreateNewProbeInput = ({ handleZoomOut, fetchCurrentProbeCode }) => {
 
     // input 관리
     const [inputs, setInputs] = useState({
@@ -38,7 +38,20 @@ export const CreateNewProbeInput = ({ handleZoomOut }) => {
 
     // input 보내기
     const handleSendProbe = () => {
-        console.log(`{ title: ${title}, destination: ${destination}, content: ${content}}`);
+
+        // 빈 자리 check
+        const validTitle = title !== '';
+        const validContent = content !== '';
+
+        if (validTitle && validContent) {
+            console.log("탐사선 보내기 진행");
+            console.log(`{ title: ${title}, destination: ${destination}, content: ${content}}`);
+
+            const probeCode = fetchCurrentProbeCode();
+
+            console.log("보낸 탐사선 코드: ", probeCode);
+        }
+
         // reset
         onReset();
     }
@@ -144,7 +157,7 @@ export const CreateNewProbeInput = ({ handleZoomOut }) => {
     )
 };
 
-export const CreateNewProbeImg = () => {
+export const CreateNewProbeImg = ({ updateCurrentProbeCode }) => {
 
     // probe 종류
     const probes = [<Probe1 />, <Probe2 />, <Probe3 />, <Probe4 />];
@@ -152,12 +165,19 @@ export const CreateNewProbeImg = () => {
     const [currentProbeIndex, setCurrentProbeIndex] = useState(0);
 
     const changeProbe = () => {
+
+        const newIndex = (currentProbeIndex + 1) % probes.length;
+
         setCurrentProbeIndex((prevIndex) => (prevIndex + 1) % probes.length);
+        updateCurrentProbeCode(newIndex);
     }
 
     useEffect(() => {
-        console.log(`Current Probe Index: ${currentProbeIndex}`);
-    }, [currentProbeIndex]);
+        // parent 한테 0부터 다시 시작함을 알려줘야 함
+        if (currentProbeIndex === 0) {
+            updateCurrentProbeCode(currentProbeIndex);
+        }
+    }, [currentProbeIndex, updateCurrentProbeCode]);
 
     return (
         <Box 
