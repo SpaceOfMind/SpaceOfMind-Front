@@ -3,20 +3,20 @@
     // width: 300px; // Adjust the width and height according to your sprite frame size
     // height: 200px;
 
-    &.satellite-1 {
-        background-image: url('../../../public/satellites/satellite_1.png');
+    &.probe-1 {
+        background-image: url('../../../public/probes/probe_1.png');
     }
 
-    &.satellite-2 {
-        background-image: url('../../../public/satellites/satellite_2.png');
+    &.probe-2 {
+        background-image: url('../../../public/probes/probe_2.png');
     }
 
-    &.satellite-3 {
-        background-image: url('../../../public/satellites/satellite_3.png');
+    &.probe-3 {
+        background-image: url('../../../public/probes/probe_3.png');
     }
 
-    &.satellite-4 {
-        background-image: url('../../../public/satellites/satellite_4.png');
+    &.probe-4 {
+        background-image: url('../../../public/probes/probe_4.png');
     }
 
     background-size: contain;
