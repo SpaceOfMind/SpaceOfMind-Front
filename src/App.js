@@ -10,8 +10,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SignUp from './pages/SignUp/SignUp';
 import { CookiesProvider } from 'react-cookie';
 import Archive from './pages/Archive/Archive';
-import CustomButton from './components/CustomButton';
-import Around from './pages/Around';
+import Around from './pages/Around/Around';
 
 function App() {
   return (
