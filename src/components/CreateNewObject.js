@@ -7,7 +7,9 @@ import {
     Spacer
 } from '@chakra-ui/react';
 import { Satellite1, Satellite2, Satellite3, Satellite4 } from './Satellites/Satellite';
-import { Icon } from '@iconify/react';
+import { Icon } from '@chakra-ui/react';
+import { PiPlanetFill } from 'react-icons/pi';
+import { MdRocketLaunch } from 'react-icons/md';
 
 // 확대 시 component
 const CreateNewObject = ({ isZoomedIn, handleZoomOut }) => {
@@ -80,12 +82,7 @@ const CreateNewObject = ({ isZoomedIn, handleZoomOut }) => {
                             transform: 'scale(1.1)',
                             bg: 'whiteAlpha.200'
                         }}
-                        leftIcon={<Icon 
-                                icon="ph:planet-fill" 
-                                color="white" 
-                                width="15" 
-                                height="15"
-                            />}
+                        leftIcon={<Icon as={PiPlanetFill}/>}
                     >인공위성</Button>
                     <Button 
                         fontSize='0.7em'
@@ -100,13 +97,7 @@ const CreateNewObject = ({ isZoomedIn, handleZoomOut }) => {
                             transform: 'scale(1.1)',
                             bg: 'whiteAlpha.200'
                         }}
-                        leftIcon={<Icon 
-                                icon="ion:rocket-sharp" 
-                                color="white" 
-                                width="15" 
-                                height="15" 
-                                opacity="0.6"
-                            />}
+                        leftIcon={<Icon as={MdRocketLaunch}/>}
                     >탐사선</Button>
                     <Spacer />
                 </Flex>
