@@ -57,7 +57,7 @@ class Archive extends Component {
           });
           fetchedContents.push(
             <ArchiveItem
-              key={index}
+              keyArchive={index}
               titleArchive={archive.title}
               contentArchive={archive.content}
             />
