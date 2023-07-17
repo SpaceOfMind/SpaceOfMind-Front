@@ -1,8 +1,8 @@
 import './ArchiveItem.scss';
 
-const ArchiveItem = ({ key, titleArchive, contentArchive }) => {
+const ArchiveItem = ({ keyArchive, titleArchive, contentArchive }) => {
   return (
-    <div key={key} className="item-wrapper">
+    <div key={keyArchive} className="item-wrapper">
       <div className="title-archive">{titleArchive}</div>
       <div className="content-archive">{contentArchive}</div>
     </div>
