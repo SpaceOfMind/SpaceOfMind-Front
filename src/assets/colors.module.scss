@@ -1,0 +1,24 @@
+$theme-colors: (
+  'brown100': #e0ddd8,
+  'brown200': #c6b7a2,
+  'brown300': #a0947e,
+  'brown400': #6f6856,
+  'brown500': #493716,
+  'brown600': #493716,
+  'brown700': #341f10,
+  'brown800': #090807,
+  'indigo100': #b1bdca,
+  'indigo200': #88a2bd,
+  'indigo300': #718fa7,
+  'indigo400': #1d6291,
+  'indigo500': #3e5780,
+  'indigo600': #293666,
+  'indigo700': #0a2644,
+  'indigo800': #0b1733,
+);
+
+:export {
+  @each $key, $value in $theme-colors {
+    #{unquote($key)}: $value;
+  }
+}
