@@ -7,12 +7,9 @@ import {
     Spacer
 } from '@chakra-ui/react';
 import { Satellite1, Satellite2, Satellite3, Satellite4 } from './Satellites/Satellite';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-export const CreateNewSatelliteInput = ({ handleZoomOut, fetchCurrentSatelliteCode }) => {
-
-    const navigate = useNavigate();
+export const CreateNewSatelliteInput = ({ handleZoomOut, fetchCurrentSatelliteCode, updateSatellitesToRender }) => {
 
     // input 관리
     const [inputs, setInputs] = useState({
@@ -37,6 +34,31 @@ export const CreateNewSatelliteInput = ({ handleZoomOut, fetchCurrentSatelliteCo
         });
     };
 
+    // render 할 위성 정보들 가져오기
+    const fetchSatellitesToRender = () => {
+        
+        console.log("Render할 인공위성 정보 가져오기 진행");
+
+        axios
+            .get('archive/getAround', {
+                    params: {
+                        userId: 1       // dummy
+                    },
+                    headers: { 'Content-type': 'application/json' }
+                })
+                .then(res => {
+                    if (res.data.result === 'success') {
+                        console.log("인공위성 정보 가져오기 성공");
+
+                        updateSatellitesToRender(res.data.arounds);
+                    }
+                })
+                .catch(err => {
+                    console.log("인공위성 정보 가져오기 에러");
+                    console.log(err);
+                });
+    };
+
     // input 보내기
     const handleSendSatellite = () => {
 
@@ -53,7 +75,7 @@ export const CreateNewSatelliteInput = ({ handleZoomOut, fetchCurrentSatelliteCo
             axios
                 .post(
                     '/archive/postInfo',
-                    { userId: 2,                    // dummy
+                    { userId: 1,                    // dummy
                         aroundCode: satelliteCode, 
                         title: title, 
                         content: content,
@@ -70,6 +92,12 @@ export const CreateNewSatelliteInput = ({ handleZoomOut, fetchCurrentSatelliteCo
 
                         // reset
                         onReset();
+
+                        // 위성정보 다 가져와서 부모에게 보내기
+                        fetchSatellitesToRender();
+
+                        // 다시 축소
+                        handleZoomOut();
                     } else if (res.data.result === 'full') {
                         // orbit 모두 찼음
                         console.log("위성 발사 실패: 궤도 모두 찼음");

@@ -10,7 +10,7 @@ import {
 import { Probe1, Probe2, Probe3, Probe4 } from "./Probes/Probe";
 import axios from 'axios';
 
-export const CreateNewProbeInput = ({ handleZoomOut, fetchCurrentProbeCode }) => {
+export const CreateNewProbeInput = ({ handleZoomOut, fetchCurrentProbeCode, updateProbesToRender }) => {
 
     // input 관리
     const [inputs, setInputs] = useState({
@@ -37,6 +37,31 @@ export const CreateNewProbeInput = ({ handleZoomOut, fetchCurrentProbeCode }) =>
         });
     };
 
+    // render 할 탐사선 정보들 가져오기
+    const fetchProbesToRender = () => {
+
+        console.log("Render할 탐사선 정보 가져오기 진행");
+
+        axios
+            .get('archive/getAway', {
+                    params: {
+                        userId: 1       // dummy
+                    },
+                    headers: { 'Content-type': 'application/json' }
+                })
+                .then(res => {
+                    if (res.data.result === 'success') {
+                        console.log("탐사선 정보 가져오기 성공");
+
+                        updateProbesToRender(res.data.aways);
+                    }
+                })
+                .catch(err => {
+                    console.log("탐사선 정보 가져오기 에러");
+                    console.log(err);
+                });
+    }
+
     // input 보내기
     const handleSendProbe = () => {
 
@@ -53,7 +78,7 @@ export const CreateNewProbeInput = ({ handleZoomOut, fetchCurrentProbeCode }) =>
             axios
                 .post(
                     '/archive/postInfo',
-                    { userId: 2,                    // dummy
+                    { userId: 1,                    // dummy
                         aroundCode: probeCode, 
                         title: title, 
                         content: content,
@@ -70,6 +95,12 @@ export const CreateNewProbeInput = ({ handleZoomOut, fetchCurrentProbeCode }) =>
 
                         // reset
                         onReset();
+
+                        // 탐사선정보 다 가져와서 부모에게 보내기
+                        fetchProbesToRender();
+
+                        // 다시 축소
+                        handleZoomOut();
                     } else if (res.data.result === 'full') {
                         // orbit 모두 찼음
                         console.log("탐사선 발사 실패: 궤도 모두 찼음");
