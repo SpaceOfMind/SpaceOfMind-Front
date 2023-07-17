@@ -6,7 +6,9 @@ import { getCookie } from '../../utils/cookie';
 import ArchiveItem from '../../components/ArchiveItem/ArchiveItem';
 
 // TODO: json parsing 에러 처리
-// local storage에 저장된 데이터가 없는 경우 refresh
+// local storage에 저장된 데이터가 없는 경우 enable refresh
+
+// user id를 어딘가에 저장해두도록...
 
 class Archive extends Component {
   constructor(props) {
