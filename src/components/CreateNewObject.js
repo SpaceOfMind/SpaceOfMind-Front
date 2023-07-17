@@ -28,6 +28,18 @@ const CreateNewObject = ({ isZoomedIn, handleZoomOut }) => {
             setShowCreateNewSatellite(false);
         }
     };
+
+    // 인공위성 or 탐사선 code
+    const [currentSatelliteCode, setCurrentSatelliteCode] = useState(0);
+
+    const updateCurrentSatelliteCode = (newCode) => {
+        
+        setCurrentSatelliteCode(newCode);
+    }
+
+    const fetchCurrentSatelliteCode = () => {
+        return currentSatelliteCode;
+    }
     
     return (
         <Flex
@@ -90,7 +102,10 @@ const CreateNewObject = ({ isZoomedIn, handleZoomOut }) => {
                     <Spacer />
                 </Flex>
                 {showCreateNewSatellite 
-                    ? <CreateNewSatelliteInput handleZoomOut={handleZoomOut} /> 
+                    ? <CreateNewSatelliteInput 
+                            handleZoomOut={handleZoomOut} 
+                            fetchCurrentSatelliteCode={fetchCurrentSatelliteCode} 
+                        /> 
                     : <CreateNewProbeInput handleZoomOut={handleZoomOut} />}
             </Flex>
             <Flex 
@@ -98,7 +113,9 @@ const CreateNewObject = ({ isZoomedIn, handleZoomOut }) => {
                 bottom={2}
                 zIndex={3}
             >
-                {showCreateNewSatellite ? <CreateNewSatelliteImg /> : <CreateNewProbeImg />}
+                {showCreateNewSatellite 
+                    ? <CreateNewSatelliteImg updateCurrentSatelliteCode={updateCurrentSatelliteCode} /> 
+                    : <CreateNewProbeImg />}
                 <Spacer bg='transparent' w='300px'></Spacer>       {/* hard coding 괜찮은가 */}
             </Flex>
         </Flex>

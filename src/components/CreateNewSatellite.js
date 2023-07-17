@@ -7,8 +7,12 @@ import {
     Spacer
 } from '@chakra-ui/react';
 import { Satellite1, Satellite2, Satellite3, Satellite4 } from './Satellites/Satellite';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-export const CreateNewSatelliteInput = ({ handleZoomOut }) => {
+export const CreateNewSatelliteInput = ({ handleZoomOut, fetchCurrentSatelliteCode }) => {
+
+    const navigate = useNavigate();
 
     // input 관리
     const [inputs, setInputs] = useState({
@@ -18,6 +22,13 @@ export const CreateNewSatelliteInput = ({ handleZoomOut }) => {
 
     const { title, content } = inputs;
 
+    const onReset = () => {
+        setInputs({
+          title: '',
+          content: '',
+        })
+    };
+
     const onChange = (e) => {
         const { value, name } = e.target;
         setInputs({
@@ -25,6 +36,46 @@ export const CreateNewSatelliteInput = ({ handleZoomOut }) => {
             [name]: value
         });
     };
+
+    // input 보내기
+    const handleSendSatellite = () => {
+
+        // 빈 자리 check
+        const validTitle = title !== '';
+        const validContent = content !== '';
+
+        if (validTitle && validContent) {
+            console.log("인공위성 보내기 진행");
+            console.log(`{ title: ${title}, content: ${content}}`);
+
+            const satelliteCode = fetchCurrentSatelliteCode();
+
+            /*axios
+                .post(
+                    '/around/postInfo',
+                    { userId: '' , aroundCode: '', orbitId: '', title: title, content: content},
+                    {
+                    headers: { 'Content-type': 'application/json' },
+                    withCredentials: true,
+                    }
+                )
+                .then(res => {
+                    if (res.data.result === 'success') {
+                        console.log("위성 발사 성공");
+                        navigate('/');
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });*/
+                
+                console.log("보낸 위성 코드: ", satelliteCode);
+
+                    }
+
+        // reset
+        onReset();
+    }
 
     return (
         <Flex
@@ -104,6 +155,7 @@ export const CreateNewSatelliteInput = ({ handleZoomOut }) => {
                         transform: 'scale(1.05)',
                         bg: 'whiteAlpha.400'
                     }}
+                    onClick={handleSendSatellite}
                 >보내기</Button>
                 <Spacer />
             </Flex>
@@ -111,7 +163,7 @@ export const CreateNewSatelliteInput = ({ handleZoomOut }) => {
     )
 };
 
-export const CreateNewSatelliteImg = () => {
+export const CreateNewSatelliteImg = ({ updateCurrentSatelliteCode }) => {
 
     // satellite 종류
     const satellites = [<Satellite1 />, <Satellite2 />, <Satellite3 />, <Satellite4 />];
@@ -119,11 +171,17 @@ export const CreateNewSatelliteImg = () => {
     const [currentSatelliteIndex, setCurrentSatelliteIndex] = useState(0);
 
     const changeSatellite = () => {
+        const newIndex = (currentSatelliteIndex + 1) % satellites.length;
+
         setCurrentSatelliteIndex((prevIndex) => (prevIndex + 1) % satellites.length);
+        updateCurrentSatelliteCode(newIndex);
     }
 
     useEffect(() => {
-        console.log(`Current Satellite Index: ${currentSatelliteIndex}`);
+        // parent 한테 0부터 다시 시작함을 알려줘야 함
+        if (currentSatelliteIndex === 0) {
+            updateCurrentSatelliteCode(currentSatelliteIndex);
+        }
     }, [currentSatelliteIndex]);
 
 

@@ -28,6 +28,21 @@ export const CreateNewProbeInput = ({ handleZoomOut }) => {
         });
     };
 
+    const onReset = () => {
+        setInputs({
+          title: '',
+          destination: '',
+          content: ''
+        });
+    };
+
+    // input 보내기
+    const handleSendProbe = () => {
+        console.log(`{ title: ${title}, destination: ${destination}, content: ${content}}`);
+        // reset
+        onReset();
+    }
+
     return (
         <Flex
             direction='column'
@@ -121,6 +136,7 @@ export const CreateNewProbeInput = ({ handleZoomOut }) => {
                         transform: 'scale(1.05)',
                         bg: 'whiteAlpha.400'
                     }}
+                    onClick={handleSendProbe}
                 >보내기</Button>
                 <Spacer />
             </Flex>
