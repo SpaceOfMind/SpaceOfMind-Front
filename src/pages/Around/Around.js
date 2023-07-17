@@ -4,10 +4,6 @@ import {
   Button,
   Flex,
   Image,
-  Grid,
-  GridItem,
-  Spacer,
-  Input,
 } from '@chakra-ui/react';
 import './Around.scss';
 import CreateNewObject from '../../components/CreateNewObject';
