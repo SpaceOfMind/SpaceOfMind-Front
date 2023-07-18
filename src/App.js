@@ -1,7 +1,7 @@
 import '@fontsource/raleway/400.css';
 import '@fontsource/open-sans/700.css';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { ChakraProvider, Box } from '@chakra-ui/react';
 import Authentication from './pages/Authentication/Authentication';
 import theme from './theme';
@@ -15,6 +15,7 @@ import Away from './pages/Away/Away';
 import DetailObject from './pages/DetailObject/DetailObject';
 import { SatelliteProvider } from './contexts/satellite';
 import { ProbeProvider } from './contexts/probe';
+import MyPlanet from './pages/MyPlanet/MyPlanet';
 
 const AppProvider = ({ contexts, children }) =>
   contexts.reduce(
@@ -26,6 +27,7 @@ const AppProvider = ({ contexts, children }) =>
   );
 
 function App() {
+
   return (
     <AppProvider contexts={[SatelliteProvider, ProbeProvider]}>
       <CookiesProvider>
@@ -41,6 +43,7 @@ function App() {
               <Route path="/away" element={<Away />} />
               <Route path="/around" element={<Around />} />
               <Route path="/signUp" element={<SignUp />} />
+              <Route path="/myPlanet" element={<MyPlanet />} />
             </Routes>
           </BrowserRouter>
         </ChakraProvider>

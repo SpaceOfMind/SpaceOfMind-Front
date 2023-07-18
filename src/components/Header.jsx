@@ -22,7 +22,7 @@ const Header = ({ selectedMenu }) => {
     });
   };
   const moveToMyPlanet = () => {
-    navigate('/around');
+    navigate('/myPlanet');
   };
 
   // TODO: nav link로 바로 이동하지 말고, 각각 fetch 해야되는 데이터 fetch 한 뒤에 라우팅 되도록 함
