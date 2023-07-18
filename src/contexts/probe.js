@@ -1,38 +1,31 @@
-import { Component, createContext } from 'react';
+import { createContext, useReducer } from 'react';
 
-const Context = createContext();
+export const ProbeContext = createContext();
 
-const { Provider, Consumer: ProbeConsumer } = Context;
-
-class ProbeProvider extends Component {
-  state = {
-    probe: [],
-  };
-  actions = {
-    update: newProbes => {
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'UPDATE_PROBE':
+      const newProbes = action.payload;
       sessionStorage.setItem('probes', JSON.stringify(newProbes));
-      this.setState({ probe: [...newProbes] });
-    },
-  };
 
-  render() {
-    const { state, actions } = this;
-    const value = { state, actions };
-
-    return <Provider value={value}>{this.props.children}</Provider>;
+      return { probes: [...newProbes] };
+    default:
+      return state;
   }
-}
+};
 
-function useProbe(WrappedComponent) {
-  return function useProbe(props) {
-    return (
-      <ProbeConsumer>
-        {({ state, actions }) => (
-          <WrappedComponent probe={state.probe} update={actions.update} />
-        )}
-      </ProbeConsumer>
-    );
+export const ProbeProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, { probes: [] });
+  const updateProbe = newProbes => {
+    dispatch({
+      type: 'UPDATE_PROBE',
+      payload: newProbes,
+    });
   };
-}
 
-export { ProbeProvider, ProbeConsumer, useProbe };
+  return (
+    <ProbeContext.Provider value={{ probes: state.probes, updateProbe }}>
+      {children}
+    </ProbeContext.Provider>
+  );
+};

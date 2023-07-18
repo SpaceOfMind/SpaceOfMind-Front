@@ -15,16 +15,16 @@ import {
 import './Authentication.scss';
 import ChatIcon from '../../components/ChatIcon';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import axios from 'axios';
-import { useSatellite } from '../../contexts/satellite';
+import { SatelliteContext } from '../../contexts/satellite';
 
 const Authentication = () => {
   const [inputId, setInputId] = useState('');
   const [inputPwd, setInputPwd] = useState('');
 
   const navigate = useNavigate();
-  const { update } = useSatellite();
+  const { updateSatellite } = useContext(SatelliteContext);
 
   const onChangeId = e => {
     setInputId(e.target.value);
@@ -48,6 +48,7 @@ const Authentication = () => {
         if (res.data.result === 'success') {
           fetchArchives().then(() => {
             console.log(`데이터 가져오기 끝`);
+            navigate('/');
           });
         }
       })
@@ -69,7 +70,7 @@ const Authentication = () => {
       .then(res => {
         if (res.data.result === 'success') {
           console.log('인공위성 정보 가져오기 성공');
-          update(res.data.arounds);
+          updateSatellite(res.data.arounds);
         }
       })
       .catch(err => {

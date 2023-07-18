@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Box, Button, Center, Flex, Image, StatLabel } from '@chakra-ui/react';
 import './Around.scss';
 import CreateNewObject from '../../components/CreateNewObject';
@@ -6,13 +6,15 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { BASE_URL } from '../../constant';
 import { getCookie } from '../../utils/cookie';
-import { useSatellite } from '../../contexts/satellite';
+import { SatelliteContext } from '../../contexts/satellite';
 
 const Around = () => {
   // 마우스가 움직이면 버튼을 보이게 하기
   const [isHovered, setIsHovered] = useState(false);
   // 확대 transition
   const [isZoomedIn, setIsZoomedIn] = useState(false);
+
+  const { satellites, updateSatellite } = useContext(SatelliteContext);
 
   const handleZoomIn = () => {
     setIsZoomedIn(true);
@@ -21,7 +23,6 @@ const Around = () => {
   const handleZoomOut = () => {
     setIsZoomedIn(false);
   };
-  const { satellites, update } = useSatellite();
 
   useEffect(() => {
     let timer;
@@ -229,6 +230,7 @@ const Around = () => {
         {satellites.map((satellite, index) => {
           return (
             <Button
+              key={index}
               onClick={() => navigate({ pathname: '/detail/around/' + index })}
             >
               인공위성{index} 상세 페이지 <br />

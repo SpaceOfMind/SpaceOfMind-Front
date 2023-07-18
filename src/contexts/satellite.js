@@ -1,43 +1,33 @@
-import { Component, createContext } from 'react';
+import { createContext, useReducer } from 'react';
 
-const Context = createContext();
+export const SatelliteContext = createContext();
 
-const { Provider, Consumer: SatelliteConsumer } = Context;
-
-class SatelliteProvider extends Component {
-  state = {
-    satellites: [],
-  };
-  actions = {
-    update: newSatellites => {
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'UPDATE_SATELLITE':
+      const newSatellites = action.payload;
       sessionStorage.setItem('satellites', JSON.stringify(newSatellites));
-      this.setState({ satellites: [...newSatellites] });
-    },
-  };
 
-  render() {
-    const { state, actions } = this;
-    const value = { state, actions };
-
-    return <Provider value={value}>{this.props.children}</Provider>;
+      return { satellites: [...newSatellites] };
+    default:
+      return state;
   }
-}
+};
 
-function useSatellite(WrappedComponent) {
-  return function useSatellite(props) {
-    return (
-      <SatelliteConsumer>
-        {({ state, actions }) => (
-          <WrappedComponent
-            satellites={state.satellites}
-            update={newSatellites => {
-              actions.update(newSatellites);
-            }}
-          />
-        )}
-      </SatelliteConsumer>
-    );
+export const SatelliteProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, { satellites: [] });
+  const updateSatellite = newSatellites => {
+    dispatch({
+      type: 'UPDATE_SATELLITE',
+      payload: newSatellites,
+    });
   };
-}
 
-export { SatelliteProvider, SatelliteConsumer, useSatellite };
+  return (
+    <SatelliteContext.Provider
+      value={{ satellites: state.satellites, updateSatellite }}
+    >
+      {children}
+    </SatelliteContext.Provider>
+  );
+};
