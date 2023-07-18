@@ -97,131 +97,138 @@ const Around = () => {
 
   return (
     <Box
-      w="100%"
-      h="100vh"
-      bgPosition="center bottom"
-      bgImage="/planet_1.png"
+      w="100%" 
+      h="100vh" 
+      bgImage="/backgrounds/background_orbits.jpg" 
       bgSize="cover"
-      className={`main-container ${isZoomedIn ? 'zoomed-in' : ''}`}
     >
-      <Image // 로고 placeholder
-        position="absolute"
-        top={5}
-        left={5}
-        boxSize="60px"
-        src="/robot-run.gif"
-        cursor="pointer"
-      />
-      <Flex
-        position="absolute"
-        top={0}
-        right={0}
-        w="30%"
-        h="8%"
-        align="center"
-        justify="space-around"
-        m={3}
-        p={3}
-      >
-        <Button
-          color="whiteAlpha.900" // 현재 위치하고 있는 메뉴
-          fontSize="1.2em"
-          bgColor="transparent"
-          _hover={{
-            color: 'whiteAlpha.900',
-            transform: 'scale(1.1)',
-          }}
-          _active={{
-            color: 'whiteAlpha.900',
-            transform: 'scale(1.1)',
-            bg: 'whiteAlpha.200',
-          }}
-        >
-          가까이 보기
-        </Button>
-        <Button
-          color="whiteAlpha.600"
-          fontSize="1.2em"
-          bgColor="transparent"
-          _hover={{
-            color: 'whiteAlpha.900',
-            transform: 'scale(1.1)',
-          }}
-          _active={{
-            color: 'whiteAlpha.900',
-            transform: 'scale(1.1)',
-            bg: 'whiteAlpha.200',
-          }}
-        >
-          멀리 보기
-        </Button>
-        <Button
-          color="whiteAlpha.600"
-          fontSize="1.2em"
-          bgColor="transparent"
-          _hover={{
-            color: 'whiteAlpha.900',
-            transform: 'scale(1.1)',
-          }}
-          _active={{
-            color: 'whiteAlpha.900',
-            transform: 'scale(1.1)',
-            bg: 'whiteAlpha.200',
-          }}
-          onClick={moveToArchivePage}
-        >
-          마음기록
-        </Button>
-        <Button
-          color="whiteAlpha.600"
-          fontSize="1.2em"
-          bgColor="transparent"
-          _hover={{
-            color: 'whiteAlpha.900',
-            transform: 'scale(1.1)',
-          }}
-          _active={{
-            color: 'whiteAlpha.900',
-            transform: 'scale(1.1)',
-            bg: 'whiteAlpha.200',
-          }}
-        >
-          내 행성
-        </Button>
-      </Flex>
-      <Flex
-        position="absolute"
-        bottom={0}
-        align="center"
-        justify="center"
+      <Box
         w="100%"
-        h="30%"
+        h="100vh"
+        bgPosition="center bottom"
+        bgImage="/planet_1.png"
+        bgSize="cover"
+        className={`main-container ${isZoomedIn ? 'zoomed-in' : ''}`}
       >
-        <Button
-          w="300px"
-          h="90px"
-          color="white"
-          bgColor="transparent"
-          border="2px"
-          borderColor="white"
-          _hover={{
-            color: 'whiteAlpha.900',
-            bg: 'whiteAlpha.200',
-            transform: 'scale(1.05)',
-          }}
-          _active={{
-            color: 'whiteAlpha.900',
-            transform: 'scale(1.05)',
-            bg: 'whiteAlpha.400',
-          }}
-          fontSize="1.8em"
-          onClick={handleZoomIn}
-          className={`add-button ${isHovered && !isZoomedIn ? 'visible' : ''}`}
+        <Image // 로고 placeholder
+          position="absolute"
+          top={5}
+          left={5}
+          boxSize="60px"
+          src="/robot-run.gif"
+          cursor="pointer"
+        />
+        <Flex
+          position="absolute"
+          top={0}
+          right={0}
+          w="30%"
+          h="8%"
+          align="center"
+          justify="space-around"
+          m={3}
+          p={3}
         >
-          우주로 보내기
-        </Button>
-      </Flex>
-      <CreateNewObject isZoomedIn={isZoomedIn} handleZoomOut={handleZoomOut} />
+          <Button
+            color="whiteAlpha.900" // 현재 위치하고 있는 메뉴
+            fontSize="1.2em"
+            bgColor="transparent"
+            _hover={{
+              color: 'whiteAlpha.900',
+              transform: 'scale(1.1)',
+            }}
+            _active={{
+              color: 'whiteAlpha.900',
+              transform: 'scale(1.1)',
+              bg: 'whiteAlpha.200',
+            }}
+          >
+            가까이 보기
+          </Button>
+          <Button
+            color="whiteAlpha.600"
+            fontSize="1.2em"
+            bgColor="transparent"
+            _hover={{
+              color: 'whiteAlpha.900',
+              transform: 'scale(1.1)',
+            }}
+            _active={{
+              color: 'whiteAlpha.900',
+              transform: 'scale(1.1)',
+              bg: 'whiteAlpha.200',
+            }}
+          >
+            멀리 보기
+          </Button>
+          <Button
+            color="whiteAlpha.600"
+            fontSize="1.2em"
+            bgColor="transparent"
+            _hover={{
+              color: 'whiteAlpha.900',
+              transform: 'scale(1.1)',
+            }}
+            _active={{
+              color: 'whiteAlpha.900',
+              transform: 'scale(1.1)',
+              bg: 'whiteAlpha.200',
+            }}
+            onClick={moveToArchivePage}
+          >
+            마음기록
+          </Button>
+          <Button
+            color="whiteAlpha.600"
+            fontSize="1.2em"
+            bgColor="transparent"
+            _hover={{
+              color: 'whiteAlpha.900',
+              transform: 'scale(1.1)',
+            }}
+            _active={{
+              color: 'whiteAlpha.900',
+              transform: 'scale(1.1)',
+              bg: 'whiteAlpha.200',
+            }}
+          >
+            내 행성
+          </Button>
+        </Flex>
+        <Flex
+          position="absolute"
+          bottom={0}
+          align="center"
+          justify="center"
+          w="100%"
+          h="30%"
+        >
+          <Button
+            w="300px"
+            h="90px"
+            color="white"
+            bgColor="transparent"
+            border="2px"
+            borderColor="white"
+            _hover={{
+              color: 'whiteAlpha.900',
+              bg: 'whiteAlpha.200',
+              transform: 'scale(1.05)',
+            }}
+            _active={{
+              color: 'whiteAlpha.900',
+              transform: 'scale(1.05)',
+              bg: 'whiteAlpha.400',
+            }}
+            fontSize="1.8em"
+            onClick={handleZoomIn}
+            className={`add-button ${isHovered && !isZoomedIn ? 'visible' : ''}`}
+          >
+            우주로 보내기
+          </Button>
+        </Flex>
+        <CreateNewObject isZoomedIn={isZoomedIn} handleZoomOut={handleZoomOut} />
+      </Box>
     </Box>
   );
 };

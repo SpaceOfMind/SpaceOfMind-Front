@@ -16,16 +16,23 @@ function App() {
   return (
     <CookiesProvider>
       <ChakraProvider theme={theme}>
-        <Box w="100%" h="100vh" bgImage="/background.jpg" bgSize="cover">
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Around />} />
-              <Route path="/archive" element={<Archive />} />
+              <Route path="/archive" element={
+                  <Box
+                    w="100%" 
+                    h="100vh" 
+                    bgImage="/backgrounds/background.jpg" 
+                    bgSize="cover"
+                  >
+                    <Archive />
+                  </Box>
+                } />
               <Route path="/login" element={<Authentication />} />
               <Route path="/signUp" element={<SignUp />} />
             </Routes>
           </BrowserRouter>
-        </Box>
       </ChakraProvider>
     </CookiesProvider>
   );
