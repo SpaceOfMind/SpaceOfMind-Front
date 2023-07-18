@@ -1,10 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Button,
-  Flex,
-  Image,
-} from '@chakra-ui/react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Box, Button, Center, Flex, Image, StatLabel } from '@chakra-ui/react';
 import './Around.scss';
 import CreateNewObject from '../../components/CreateNewObject';
 import { useNavigate } from 'react-router-dom';
@@ -12,12 +7,15 @@ import axios from 'axios';
 import { BASE_URL } from '../../constant';
 import { getCookie } from '../../utils/cookie';
 import ShowSatellites from '../../components/ShowSatellites';
+import { SatelliteContext } from '../../contexts/satellite';
 
 const Around = () => {
   // 마우스가 움직이면 버튼을 보이게 하기
   const [isHovered, setIsHovered] = useState(false);
   // 확대 transition
   const [isZoomedIn, setIsZoomedIn] = useState(false);
+
+  const { satellites, updateSatellite } = useContext(SatelliteContext);
 
   const handleZoomIn = () => {
     setIsZoomedIn(true);
@@ -49,14 +47,20 @@ const Around = () => {
   const navigate = useNavigate();
 
   const moveToArchivePage = async () => {
-    fetchData().then(() => navigate('/archive'));
+    fetchArchiveData().then(result => {
+      if (result) {
+        navigate('/archive');
+      } else {
+        console.log(`failed to get archive data from server`);
+      }
+    });
   };
 
   const moveToAwayPage = () => {
     navigate('/away');
   }
 
-  const fetchData = async () => {
+  const fetchArchiveData = async () => {
     try {
       const res = await axios({
         method: 'get',
@@ -69,7 +73,6 @@ const Around = () => {
       });
 
       if (res.data.result === 'success') {
-        console.log(`success to fetch data!`);
         const fetchedContents = [];
         const fetchedDateItems = [];
         res.data.archives.forEach((archive, index) => {
@@ -82,9 +85,6 @@ const Around = () => {
           });
         });
 
-        console.log(`length of fetchedContents: ${fetchedContents.length}`);
-        console.log(`length of fetchedDateItems: ${fetchedDateItems.length}`);
-
         window.localStorage.setItem(
           'fetchedContents',
           JSON.stringify(fetchedContents)
@@ -93,10 +93,15 @@ const Around = () => {
           'fetchedDateItems',
           JSON.stringify(fetchedDateItems)
         );
+
+        return true;
       }
+
+      return false;
     } catch (error) {
       // Handle errors if necessary
       console.error(error);
+      return false;
     }
   };
 

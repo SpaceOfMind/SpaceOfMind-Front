@@ -12,14 +12,31 @@ import { CookiesProvider } from 'react-cookie';
 import Archive from './pages/Archive/Archive';
 import Around from './pages/Around/Around';
 import Away from './pages/Away/Away';
+import DetailObject from './pages/DetailObject/DetailObject';
+import { SatelliteProvider } from './contexts/satellite';
+import { ProbeProvider } from './contexts/probe';
+
+const AppProvider = ({ contexts, children }) =>
+  contexts.reduce(
+    (prev, context) =>
+      React.createElement(context, {
+        children: prev,
+      }),
+    children
+  );
 
 function App() {
   return (
+    <AppProvider contexts={[SatelliteProvider, ProbeProvider]}>
     <CookiesProvider>
       <ChakraProvider theme={theme}>
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Around />} />
+              <Route
+                path="/detail/around/:objectId"
+                element={<DetailObject />}
+              />
               <Route path="/archive" element={
                   <Box
                     w="100%" 
@@ -37,6 +54,8 @@ function App() {
           </BrowserRouter>
       </ChakraProvider>
     </CookiesProvider>
+</AppProvider>
+
   );
 }
 
