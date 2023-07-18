@@ -1,56 +1,76 @@
-import React from "react";
-import {
-    Flex,
-    Show,
-    Spacer
-} from '@chakra-ui/react';
-import { Satellite1, Satellite2, Satellite3, Satellite4 } from "./Satellites/Satellite";
+import React, { useContext } from 'react';
+import { Flex, Image } from '@chakra-ui/react';
 import './ShowSatellites.scss';
+import { SatelliteContext } from '../contexts/satellite';
+import { useNavigate } from 'react-router-dom';
 
 const ShowSatellites = ({ isZoomedIn }) => {
+  const { satellites } = useContext(SatelliteContext);
+  const navigate = useNavigate();
 
-    const satellites = [<Satellite1 inOrbit={true} />,  
-        <Satellite2 inOrbit={true} />, 
-        <Satellite3 inOrbit={true} />, 
-        <Satellite4 inOrbit={true} />]
+  const positions = [
+    { x: '10vw', y: '25vh', degree: -30 },
+    { x: '40vw', y: '50vh', degree: 0 },
+    { x: '60vw', y: '10vh', degree: 10 },
+    { x: '30vw', y: '80vh', degree: 25 },
+    { x: '20vw', y: '65vh', degree: -10 },
+    { x: '76vw', y: '35vh', degree: 30 },
+    { x: '10vw', y: '70vh', degree: 45 },
+  ];
 
-    const positions = [
-        { colorCode: 0, x: "10vw", y: "25vh", degree: 20},
-        { colorCode: 2, x: "40vw", y: "50vh", degree: -40 },
-      ];
+  const satellitesData = satellites.map((satellite, index) => {
+    return {
+      position: {
+        colorCode: satellite.colorCode,
+        x: positions[index].x,
+        y: positions[index].y,
+        degree: positions[index].degree,
+      },
+      component: (
+        <Image
+          key={index}
+          w="340px"
+          h="180px"
+          src={'satellites/satellite_' + (satellite.colorCode + 1) + '.png'}
+          cursor="pointer"
+          backgroundRepeat="no-repeat"
+          onClick={() => navigate({ pathname: '/detail/around/' + index })}
+        />
+      ),
+    };
+  });
 
-    return (
-        <Flex
-          position='absolute'
-          w='100%'
-          h='70%'
-          top='8%'
-          zIndex={2}
-          className={`show-container ${!isZoomedIn ? 'visible' : ''}`}
-        >
-          <Flex
-            position="relative"
-            w='100%'
-            h='100%'
-            // bg='yellow.100'
+  return (
+    <Flex
+      position="absolute"
+      w="100%"
+      h="70%"
+      top="8%"
+      zIndex={2}
+      className={`show-container ${!isZoomedIn ? 'visible' : ''}`}
+    >
+      <Flex
+        position="relative"
+        w="100%"
+        h="100%"
+        // bg='yellow.100'
+      >
+        {satellitesData.map((data, index) => (
+          <div
+            key={index}
+            style={{
+              position: 'absolute',
+              left: data.position.x,
+              top: data.position.y,
+              transform: `rotate(${data.position.degree}deg)`,
+            }}
           >
-            {positions.map((sprite, index) => (
-                <div
-                    key={index}
-                    style={{
-                        position: "absolute",
-                        left: sprite.x,
-                        top: sprite.y,
-                        transform: `rotate(${sprite.degree}deg)`,
-                    }}
-                >
-                    {satellites[sprite.colorCode]}
-                    {/* <Satellite1 inOrbit={true} /> */}
-                </div>
+            {data.component}
+          </div>
         ))}
-          </Flex>
-        </Flex>
-    );
+      </Flex>
+    </Flex>
+  );
 };
 
 export default ShowSatellites;

@@ -28,34 +28,24 @@ const AppProvider = ({ contexts, children }) =>
 function App() {
   return (
     <AppProvider contexts={[SatelliteProvider, ProbeProvider]}>
-    <CookiesProvider>
-      <ChakraProvider theme={theme}>
+      <CookiesProvider>
+        <ChakraProvider theme={theme}>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Around />} />
+              <Route path="/" element={<Authentication />} />
               <Route
                 path="/detail/around/:objectId"
                 element={<DetailObject />}
               />
-              <Route path="/archive" element={
-                  <Box
-                    w="100%" 
-                    h="100vh" 
-                    bgImage="/backgrounds/background.jpg" 
-                    bgSize="cover"
-                  >
-                    <Archive />
-                  </Box>
-                } />
-              <Route path="/away" element={<Away />}/>
-              <Route path="/login" element={<Authentication />} />
+              <Route path="/archive" element={<Archive />} />
+              <Route path="/away" element={<Away />} />
+              <Route path="/around" element={<Around />} />
               <Route path="/signUp" element={<SignUp />} />
             </Routes>
           </BrowserRouter>
-      </ChakraProvider>
-    </CookiesProvider>
-</AppProvider>
-
+        </ChakraProvider>
+      </CookiesProvider>
+    </AppProvider>
   );
 }
 
