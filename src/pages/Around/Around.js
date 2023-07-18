@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Center, Flex, Image } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Image, StatLabel } from '@chakra-ui/react';
 import './Around.scss';
 import CreateNewObject from '../../components/CreateNewObject';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { BASE_URL } from '../../constant';
 import { getCookie } from '../../utils/cookie';
+import { useSatellite } from '../../contexts/satellite';
 
 const Around = () => {
   // 마우스가 움직이면 버튼을 보이게 하기
@@ -20,6 +21,7 @@ const Around = () => {
   const handleZoomOut = () => {
     setIsZoomedIn(false);
   };
+  const { satellites, update } = useSatellite();
 
   useEffect(() => {
     let timer;
@@ -43,7 +45,13 @@ const Around = () => {
   const navigate = useNavigate();
 
   const moveToArchivePage = async () => {
-    fetchArchiveData().then(() => navigate('/archive'));
+    fetchArchiveData().then(result => {
+      if (result) {
+        navigate('/archive');
+      } else {
+        console.log(`failed to get archive data from server`);
+      }
+    });
   };
 
   const fetchArchiveData = async () => {
@@ -59,7 +67,6 @@ const Around = () => {
       });
 
       if (res.data.result === 'success') {
-        console.log(`success to fetch data!`);
         const fetchedContents = [];
         const fetchedDateItems = [];
         res.data.archives.forEach((archive, index) => {
@@ -72,9 +79,6 @@ const Around = () => {
           });
         });
 
-        console.log(`length of fetchedContents: ${fetchedContents.length}`);
-        console.log(`length of fetchedDateItems: ${fetchedDateItems.length}`);
-
         window.localStorage.setItem(
           'fetchedContents',
           JSON.stringify(fetchedContents)
@@ -83,10 +87,15 @@ const Around = () => {
           'fetchedDateItems',
           JSON.stringify(fetchedDateItems)
         );
+
+        return true;
       }
+
+      return false;
     } catch (error) {
       // Handle errors if necessary
       console.error(error);
+      return false;
     }
   };
 
@@ -217,9 +226,16 @@ const Around = () => {
       </Flex>
 
       <Center h="100vh">
-        <Button onClick={() => navigate({ pathname: '/detail/around/' + '1' })}>
-          인공위성 상세 페이지
-        </Button>
+        {satellites.map((satellite, index) => {
+          return (
+            <Button
+              onClick={() => navigate({ pathname: '/detail/around/' + index })}
+            >
+              인공위성{index} 상세 페이지 <br />
+              title: {satellite.title}
+            </Button>
+          );
+        })}
       </Center>
 
       <CreateNewObject isZoomedIn={isZoomedIn} handleZoomOut={handleZoomOut} />
