@@ -80,7 +80,7 @@ export const CreateNewSatelliteInput = ({
           '/archive/postInfo',
           {
             userId: 1, // dummy
-            aroundCode: satelliteCode,
+            colorCode: satelliteCode,
             title: title,
             content: content,
             isAround: 1,

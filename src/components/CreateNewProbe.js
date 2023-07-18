@@ -83,9 +83,10 @@ export const CreateNewProbeInput = ({
         .post(
           '/archive/postInfo',
           {
-            userId: 1, // dummy
-            aroundCode: probeCode,
+            userId: 2, // dummy
+            colorCode: probeCode,
             title: title,
+            destination: destination,
             content: content,
             isAround: 0,
           },
