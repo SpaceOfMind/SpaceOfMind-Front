@@ -5,16 +5,19 @@ import {
     Spacer
 } from '@chakra-ui/react';
 import { Satellite1, Satellite2, Satellite3, Satellite4 } from "./Satellites/Satellite";
+import './ShowSatellites.scss';
 
-const ShowSatellites = () => {
+const ShowSatellites = ({ isZoomedIn }) => {
+
+    const satellites = [<Satellite1 inOrbit={true} />,  
+        <Satellite2 inOrbit={true} />, 
+        <Satellite3 inOrbit={true} />, 
+        <Satellite4 inOrbit={true} />]
 
     const positions = [
-        { x: "10vw", y: "25vh" },
-        { x: "40vw", y: "50vh" },
-        // { x: "0vw", y: "0vh" },
-        // { x: "100vw", y: "100vh" },
+        { colorCode: 0, x: "10vw", y: "25vh", degree: 20},
+        { colorCode: 2, x: "40vw", y: "50vh", degree: -40 },
       ];
-
 
     return (
         <Flex
@@ -23,6 +26,7 @@ const ShowSatellites = () => {
           h='70%'
           top='8%'
           zIndex={2}
+          className={`show-container ${!isZoomedIn ? 'visible' : ''}`}
         >
           <Flex
             position="relative"
@@ -37,9 +41,11 @@ const ShowSatellites = () => {
                         position: "absolute",
                         left: sprite.x,
                         top: sprite.y,
+                        transform: `rotate(${sprite.degree}deg)`,
                     }}
                 >
-                    <Satellite1 />
+                    {satellites[sprite.colorCode]}
+                    {/* <Satellite1 inOrbit={true} /> */}
                 </div>
         ))}
           </Flex>

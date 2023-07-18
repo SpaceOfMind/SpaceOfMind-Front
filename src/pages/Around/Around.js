@@ -197,7 +197,7 @@ const Around = () => {
             내 행성
           </Button>
         </Flex>
-        {/* <ShowSatellites isZoomedIn={isZoomedIn} handleZoomOut={handleZoomOut} />    orbit 위 위성들 render & display */}
+        <ShowSatellites isZoomedIn={isZoomedIn} />    {/*orbit 위 위성들 render & display*/}
         <Flex
           position="absolute"
           bottom={0}
