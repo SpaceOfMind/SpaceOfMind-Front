@@ -60,7 +60,7 @@ export const CreateNewSatelliteInput = ({
           '/archive/postInfo',
           {
             userId: sessionStorage.getItem('userId'),
-            aroundCode: satelliteCode,
+            colorCode: satelliteCode,
             title: title,
             content: content,
             colorCode: satelliteCode,

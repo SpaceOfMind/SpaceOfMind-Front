@@ -1,7 +1,13 @@
 
-.container {
-    // width: 300px; // Adjust the width and height according to your sprite frame size
-    // height: 200px;
+.probe-container {
+    
+    width: 120px;
+    height: 250px;
+
+    &.small {
+        width: 60px;
+        height: 130px;
+    }
 
     &.probe-1 {
         background-image: url('../../../public/probes/probe_1.png');

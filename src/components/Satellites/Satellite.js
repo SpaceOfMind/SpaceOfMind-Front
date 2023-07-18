@@ -5,7 +5,7 @@ import './Satellite.scss';
 export const Satellite1 = ({ inOrbit }) => {
     return (
         <Box 
-            className={`container ${inOrbit ? 'small' : ''} satellite-1`}
+            className={`sateliite-container ${inOrbit ? 'small' : ''} satellite-1`}
 
         />
     );
@@ -14,7 +14,7 @@ export const Satellite1 = ({ inOrbit }) => {
 export const Satellite2 = ({ inOrbit }) => {
     return (
         <Box 
-            className={`container ${inOrbit ? 'small' : ''} satellite-2`}
+            className={`sateliite-container ${inOrbit ? 'small' : ''} satellite-2`}
         />
     );
 };
@@ -22,7 +22,7 @@ export const Satellite2 = ({ inOrbit }) => {
 export const Satellite3 = ({ inOrbit }) => {
     return (
         <Box 
-            className={`container ${inOrbit ? 'small' : ''} satellite-3`}
+            className={`sateliite-container ${inOrbit ? 'small' : ''} satellite-3`}
         />
     );
 };
@@ -30,7 +30,7 @@ export const Satellite3 = ({ inOrbit }) => {
 export const Satellite4 = ({ inOrbit }) => {
     return (
         <Box 
-            className={`container ${inOrbit ? 'small' : ''} satellite-4`}
+            className={`sateliite-container ${inOrbit ? 'small' : ''} satellite-4`}
         />
     );
 };
