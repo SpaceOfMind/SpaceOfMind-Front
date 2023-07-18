@@ -83,9 +83,6 @@ const SignUp = () => {
 
   const onConfirmSignUp = () => {
     if (colorCode) {
-      console.log(`회원 가입 진행`);
-      console.log(BASE_URL + '/auth/signUp');
-
       axios({
         method: 'post',
         url: BASE_URL + '/auth/signUp',
@@ -99,7 +96,6 @@ const SignUp = () => {
           colorCode,
         },
       }).then(res => {
-        console.log(`sign up response: ${res}`);
         if (res.data.result === 'success') {
           navigate('/');
         }

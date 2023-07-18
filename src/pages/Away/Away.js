@@ -1,11 +1,10 @@
 import React from 'react';
-import { Box, Button, Flex, Image } from '@chakra-ui/react';
+import { Box, Flex, Image } from '@chakra-ui/react';
 import './Away.scss';
-import ShowProbes from "../../components/ShowProbes";
+import ShowProbes from '../../components/ShowObject/ShowProbes';
 import Header from '../../components/Header';
 
 const Away = () => {
-
   return (
     <Box
       w="100%"
@@ -16,14 +15,14 @@ const Away = () => {
     >
       <Flex direction="column">
         <Header selectedMenu={1} />
-        <Flex       // 내 행성 display
-            position='absolute'
-            w='120px'
-            h='120px'
-            top='25%'
-            left='8%'
+        <Flex // 내 행성 display
+          position="absolute"
+          w="120px"
+          h="120px"
+          top="25%"
+          left="8%"
         >
-            <Image src={'/planets/planet_sphere1.png'} />
+          <Image src={'/planets/planet_sphere1.png'} />
         </Flex>
         <ShowProbes />
       </Flex>

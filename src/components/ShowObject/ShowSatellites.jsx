@@ -1,18 +1,19 @@
 import React, { useContext } from 'react';
 import { Flex, Image } from '@chakra-ui/react';
-import './ShowSatellites.scss';
-import { SatelliteContext } from '../contexts/satellite';
+import { SatelliteContext } from '../../contexts/satellite';
 import { useNavigate } from 'react-router-dom';
+import './ShowObject.scss';
+import classNames from 'classnames';
 
 const ShowSatellites = ({ isZoomedIn }) => {
   const { satellites } = useContext(SatelliteContext);
   const navigate = useNavigate();
 
   const positions = [
-    { x: '10vw', y: '25vh', degree: -30 },
-    { x: '40vw', y: '50vh', degree: 0 },
-    { x: '60vw', y: '10vh', degree: 10 },
-    { x: '30vw', y: '80vh', degree: 25 },
+    { x: '7vw', y: '25vh', degree: -45 },
+    { x: '55vw', y: '10vh', degree: 10 },
+    { x: '70vw', y: '50vh', degree: -15 },
+    { x: '20vw', y: '60vh', degree: -15 },
     { x: '20vw', y: '65vh', degree: -10 },
     { x: '76vw', y: '35vh', degree: 30 },
     { x: '10vw', y: '70vh', degree: 45 },
@@ -29,8 +30,8 @@ const ShowSatellites = ({ isZoomedIn }) => {
       component: (
         <Image
           key={index}
-          w="340px"
-          h="180px"
+          w="200px"
+          h="105px"
           src={'satellites/satellite_' + (satellite.colorCode + 1) + '.png'}
           cursor="pointer"
           backgroundRepeat="no-repeat"
@@ -49,14 +50,12 @@ const ShowSatellites = ({ isZoomedIn }) => {
       zIndex={2}
       className={`show-container ${!isZoomedIn ? 'visible' : ''}`}
     >
-      <Flex
-        position="relative"
-        w="100%"
-        h="100%"
-        // bg='yellow.100'
-      >
+      <Flex position="relative" w="100%" h="100%">
         {satellitesData.map((data, index) => (
           <div
+            className={classNames('map-object-satellite', {
+              reverse: index % 2 === 0,
+            })}
             key={index}
             style={{
               position: 'absolute',
