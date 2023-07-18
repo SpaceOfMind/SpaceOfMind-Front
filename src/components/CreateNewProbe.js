@@ -54,11 +54,6 @@ export const CreateNewProbeInput = ({
     const validContent = content !== '';
 
     if (validTitle && validContent) {
-      console.log('탐사선 보내기 진행');
-      console.log(
-        `{ title: ${title}, destination: ${destination}, content: ${content}}`
-      );
-
       const probeCode = fetchCurrentProbeCode();
 
       axios
@@ -203,7 +198,6 @@ export const CreateNewProbeImg = ({ updateCurrentProbeCode }) => {
 
   const changeProbe = () => {
     const newIndex = (currentProbeIndex + 1) % probes.length;
-
     setCurrentProbeIndex(prevIndex => (prevIndex + 1) % probes.length);
     updateCurrentProbeCode(newIndex);
   };

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
-import axios from 'axios';
 import { Chrono } from 'react-chrono';
-import { BASE_URL } from '../../constant';
 import { getCookie } from '../../utils/cookie';
 import ArchiveItem from '../../components/ArchiveItem/ArchiveItem';
 import Header from '../../components/Header';
