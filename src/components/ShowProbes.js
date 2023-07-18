@@ -9,6 +9,15 @@ import './ShowProbes.scss';
 
 const ShowProbes = () => {
 
+    // 현재 date
+    const currentDate = new Date();
+
+    // 더미 데이터!!
+    const dummyProbes = [
+        { colorCode: 1, orbitId: 0, title: "어디로", content: "갈까", createdAt: "2023.06.20" },
+        { colorCode: 3, orbitId: 1, title: "멀리", content: "보내자", createdAt: "2023.07.08" }
+    ];
+
     const probes = [<Probe1 inOrbit={true} />,  
         <Probe2 inOrbit={true} />, 
         <Probe3 inOrbit={true} />, 
@@ -18,6 +27,22 @@ const ShowProbes = () => {
         { colorCode: 0, x: "40vw", y: "25vh", degree: 60},
         { colorCode: 2, x: "60vw", y: "50vh", degree: 120 },
       ];
+
+    const calculatePosition = (orbitId, dateArray) => {
+
+    }
+
+    const getPositions = (probes) => {
+        probes.map((probe) => {
+            const color = probe.colorCode;
+            const orbit = probe.orbitId;
+            const date = probe.createdAt.split(".");
+
+            const { x, y } = calculatePosition(orbit, date);
+
+
+        });
+    }
 
     return (
         <Flex
@@ -44,7 +69,6 @@ const ShowProbes = () => {
                     }}
                 >
                     {probes[sprite.colorCode]}
-                    {/* <Satellite1 inOrbit={true} /> */}
                 </div>
         ))}
           </Flex>
