@@ -32,10 +32,10 @@ import {
 
 const SignUp = () => {
   const imageUrls = [
-    'planet_sphere1.png',
-    'planet_sphere2.png',
-    'planet_sphere3.png',
-    'planet_sphere4.png',
+    'planets/planet_sphere1.png',
+    'planets/planet_sphere2.png',
+    'planets/planet_sphere3.png',
+    'planets/planet_sphere4.png',
   ];
 
   const [inputs, setInputs] = useState({

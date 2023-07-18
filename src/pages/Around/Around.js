@@ -106,7 +106,7 @@ const Around = () => {
         w="100%"
         h="100vh"
         bgPosition="center bottom"
-        bgImage="/planet_1.png"
+        bgImage="/planets/planet_1.png"
         bgSize="cover"
         className={`main-container ${isZoomedIn ? 'zoomed-in' : ''}`}
       >
