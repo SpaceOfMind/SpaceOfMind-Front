@@ -15,18 +15,17 @@ import {
 import './Authentication.scss';
 import ChatIcon from '../../components/ChatIcon';
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-import { SatelliteContext } from '../../contexts/satellite';
-import { ProbeContext } from '../../contexts/probe';
+import useFetchArchiveData from '../../utils/useFetchArchiveData';
 
 const Authentication = () => {
   const [inputId, setInputId] = useState('');
   const [inputPwd, setInputPwd] = useState('');
 
   const navigate = useNavigate();
-  const { updateSatellite } = useContext(SatelliteContext);
-  const { updateProbe } = useContext(ProbeContext);
+
+  const [fetchArchives, fetchSatellites, fetchProbes] = useFetchArchiveData();
 
   const onChangeId = e => {
     setInputId(e.target.value);
@@ -48,7 +47,10 @@ const Authentication = () => {
       )
       .then(res => {
         if (res.data.result === 'success') {
-          fetchArchives().then(() => {
+          sessionStorage.setItem('userId', res.data.userId);
+          sessionStorage.setItem('planetCode', res.data.planetCode);
+
+          fetchAllData().then(() => {
             console.log(`데이터 가져오기 끝`);
             navigate('/around');
           });
@@ -59,45 +61,11 @@ const Authentication = () => {
       });
   };
 
-  const fetchArchives = async () => {
+  const fetchAllData = async () => {
     console.log('initialize archive data for arounds and aways');
-
-    await axios
-      .get('archive/getAround', {
-        params: {
-          userId: 1, // TODO: dummy
-        },
-        headers: { 'Content-type': 'application/json' },
-      })
-      .then(res => {
-        if (res.data.result === 'success') {
-          console.log('인공위성 정보 가져오기 성공');
-          updateSatellite(res.data.arounds);
-        }
-      })
-      .catch(err => {
-        console.log('인공위성 정보 가져오기 에러');
-        console.log(err);
-      });
-
-    await axios
-      .get('archive/getAway', {
-        params: {
-          userId: 1, // TODO: dummy
-        },
-        headers: { 'Content-type': 'application/json' },
-      })
-      .then(res => {
-        if (res.data.result === 'success') {
-          console.log('탐사선 정보 가져오기 성공');
-          // TODO: hook & context API 쓰도록 변경
-          updateProbe(res.data.aways);
-        }
-      })
-      .catch(err => {
-        console.log('탐사선 정보 가져오기 에러');
-        console.log(err);
-      });
+    await fetchArchives();
+    await fetchSatellites();
+    await fetchProbes();
   };
 
   return (

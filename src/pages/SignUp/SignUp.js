@@ -96,12 +96,12 @@ const SignUp = () => {
           userEmail: email,
           userPwd: pwd,
           userName: name,
-          planetCode: colorCode,
+          colorCode,
         },
       }).then(res => {
         console.log(`sign up response: ${res}`);
         if (res.data.result === 'success') {
-          navigate('/login');
+          navigate('/');
         }
       });
     }
@@ -109,9 +109,9 @@ const SignUp = () => {
 
   return (
     <Box
-      w="100%" 
-      h="100vh" 
-      bgImage="/backgrounds/background.jpg" 
+      w="100%"
+      h="100vh"
+      bgImage="/backgrounds/background.jpg"
       bgSize="cover"
     >
       <Center align="center" h="100vh">
