@@ -18,6 +18,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import axios from 'axios';
 import { SatelliteContext } from '../../contexts/satellite';
+import { ProbeContext } from '../../contexts/probe';
 
 const Authentication = () => {
   const [inputId, setInputId] = useState('');
@@ -25,6 +26,7 @@ const Authentication = () => {
 
   const navigate = useNavigate();
   const { updateSatellite } = useContext(SatelliteContext);
+  const { updateProbe } = useContext(ProbeContext);
 
   const onChangeId = e => {
     setInputId(e.target.value);
@@ -48,7 +50,7 @@ const Authentication = () => {
         if (res.data.result === 'success') {
           fetchArchives().then(() => {
             console.log(`데이터 가져오기 끝`);
-            navigate('/');
+            navigate('/around');
           });
         }
       })
@@ -89,10 +91,7 @@ const Authentication = () => {
         if (res.data.result === 'success') {
           console.log('탐사선 정보 가져오기 성공');
           // TODO: hook & context API 쓰도록 변경
-          window.sessionStorage.setItem(
-            'aways',
-            JSON.stringify(res.data.aways)
-          );
+          updateProbe(res.data.aways);
         }
       })
       .catch(err => {
@@ -103,9 +102,9 @@ const Authentication = () => {
 
   return (
     <Box
-      w="100%" 
-      h="100vh" 
-      bgImage="/backgrounds/background.jpg" 
+      w="100%"
+      h="100vh"
+      bgImage="/backgrounds/background.jpg"
       bgSize="cover"
     >
       <Center align="center" h="100vh">
