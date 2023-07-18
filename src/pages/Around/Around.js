@@ -52,6 +52,10 @@ const Around = () => {
     fetchData().then(() => navigate('/archive'));
   };
 
+  const moveToAwayPage = () => {
+    navigate('/away');
+  }
+
   const fetchData = async () => {
     try {
       const res = await axios({
@@ -160,6 +164,7 @@ const Around = () => {
               transform: 'scale(1.1)',
               bg: 'whiteAlpha.200',
             }}
+            onClick={moveToAwayPage}
           >
             멀리 보기
           </Button>

@@ -11,6 +11,7 @@ import SignUp from './pages/SignUp/SignUp';
 import { CookiesProvider } from 'react-cookie';
 import Archive from './pages/Archive/Archive';
 import Around from './pages/Around/Around';
+import Away from './pages/Away/Away';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
                     <Archive />
                   </Box>
                 } />
+              <Route path="/away" element={<Away />}/>
               <Route path="/login" element={<Authentication />} />
               <Route path="/signUp" element={<SignUp />} />
             </Routes>
