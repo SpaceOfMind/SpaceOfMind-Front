@@ -5,30 +5,28 @@ import { useParams } from 'react-router';
 import './Detail.scss';
 import ArchiveContent from '../../components/ArchiveContent';
 import { Button } from '@chakra-ui/button';
-import { SatelliteContext } from '../../contexts/satellite';
+import { ProbeContext } from '../../contexts/probe';
 
-const DetailObject = () => {
-  // TODO: detail around가 처음 마운트 될 때 서버로부터 objectId를 기반으로?? 앵????????
-  // 처음 around view 혹은 away view로 들어갈 때 미리 데이터를 fetch 해와서 클릭하면 바로 props로 데이터를 넘겨주도록 함
+const DetailAway = () => {
+  // TODO: detail away가 처음 마운트 될 때 서버로부터 objectId를 기반으로?? 앵????????
+  // 처음 away view 혹은 away view로 들어갈 때 미리 데이터를 fetch 해와서 클릭하면 바로 props로 데이터를 넘겨주도록 함
   // session storage에 어떻게 저장하는지 살펴보고 session storage에서 들고올 수 있는 key를 알아야할 것 같은뎅
 
   const { objectId } = useParams();
-  const { satellites } = useContext(SatelliteContext);
-  const currentSatellite = satellites[objectId];
+  const { probes } = useContext(ProbeContext);
+  const currentProbe = probes[objectId];
 
   const [showEmpty, setShowEmpty] = useState(true);
   const [showEmptyMore, setShowEmptyMore] = useState(true);
 
-  console.log(`파싱된 objectId: ${objectId}`);
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowEmpty(false);
-    }, 1500);
+    }, 600);
 
     const timerMore = setTimeout(() => {
       setShowEmptyMore(false);
-    }, 2500);
+    }, 1200);
     return () => {
       clearTimeout(timer);
       clearTimeout(timerMore);
@@ -50,11 +48,7 @@ const DetailObject = () => {
         >
           <Image
             p="20"
-            src={
-              '/satellites/satellite_' +
-              (currentSatellite.colorCode + 1) +
-              '.png'
-            }
+            src={'/probes/probe_' + (currentProbe.colorCode + 1) + '.png'}
           />
         </div>
       )}
@@ -65,11 +59,9 @@ const DetailObject = () => {
         >
           <Flex direction="column" gap="16px">
             <ArchiveContent
-              title={currentSatellite.title}
-              content={currentSatellite.content}
-              dateTime={currentSatellite.createdAt
-                .split('.')[0]
-                .replace('T', ' ')}
+              title={currentProbe.title}
+              content={currentProbe.content}
+              dateTime={currentProbe.createdAt.split('.')[0].replace('T', ' ')}
             />
             <Flex justify="flex-end" gap="16px">
               <Button bgColor="whiteAlpha.800" width="100px">
@@ -83,4 +75,4 @@ const DetailObject = () => {
   );
 };
 
-export default DetailObject;
+export default DetailAway;

@@ -1,0 +1,13 @@
+.map-object {
+  animation: motion 0.6s linear 0s infinite alternate;
+  margin-top: 0;
+}
+
+@keyframes motion {
+  0% {
+    margin-top: 0px;
+  }
+  100% {
+    margin-top: 12px;
+  }
+}

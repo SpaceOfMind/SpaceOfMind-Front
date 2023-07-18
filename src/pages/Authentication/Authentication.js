@@ -51,7 +51,6 @@ const Authentication = () => {
           sessionStorage.setItem('planetCode', res.data.planetCode);
 
           fetchAllData().then(() => {
-            console.log(`데이터 가져오기 끝`);
             navigate('/around');
           });
         }
@@ -62,7 +61,6 @@ const Authentication = () => {
   };
 
   const fetchAllData = async () => {
-    console.log('initialize archive data for arounds and aways');
     await fetchArchives();
     await fetchSatellites();
     await fetchProbes();
