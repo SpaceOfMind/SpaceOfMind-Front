@@ -10,11 +10,11 @@ import {
 } from '@chakra-ui/react';
 import { Probe1, Probe2, Probe3, Probe4 } from './Probes/Probe';
 import axios from 'axios';
+import useFetchArchiveData from '../utils/useFetchArchiveData';
 
 export const CreateNewProbeInput = ({
   handleZoomOut,
   fetchCurrentProbeCode,
-  updateProbesToRender,
 }) => {
   // input 관리
   const [inputs, setInputs] = useState({
@@ -24,6 +24,7 @@ export const CreateNewProbeInput = ({
   });
 
   const { title, destination, content } = inputs;
+  const [, , fetchProbes] = useFetchArchiveData();
 
   const onChange = e => {
     const { value, name } = e.target;
@@ -42,27 +43,8 @@ export const CreateNewProbeInput = ({
   };
 
   // render 할 탐사선 정보들 가져오기
-  const fetchProbesToRender = () => {
-    console.log('Render할 탐사선 정보 가져오기 진행');
-
-    axios
-      .get('archive/getAway', {
-        params: {
-          userId: sessionStorage.getItem('userId'), // dummy
-        },
-        headers: { 'Content-type': 'application/json' },
-      })
-      .then(res => {
-        if (res.data.result === 'success') {
-          console.log('탐사선 정보 가져오기 성공');
-
-          updateProbesToRender(res.data.aways);
-        }
-      })
-      .catch(err => {
-        console.log('탐사선 정보 가져오기 에러');
-        console.log(err);
-      });
+  const fetchProbesToRender = async () => {
+    await fetchProbes();
   };
 
   // input 보내기

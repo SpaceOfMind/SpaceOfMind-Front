@@ -7,11 +7,11 @@ import {
   Satellite4,
 } from './Satellites/Satellite';
 import axios from 'axios';
+import useFetchArchiveData from '../utils/useFetchArchiveData';
 
 export const CreateNewSatelliteInput = ({
   handleZoomOut,
   fetchCurrentSatelliteCode,
-  updateSatellitesToRender,
 }) => {
   // input 관리
   const [inputs, setInputs] = useState({
@@ -20,6 +20,7 @@ export const CreateNewSatelliteInput = ({
   });
 
   const { title, content } = inputs;
+  const [, fetchSatellites] = useFetchArchiveData();
 
   const onReset = () => {
     setInputs({
@@ -39,28 +40,7 @@ export const CreateNewSatelliteInput = ({
   // render 할 위성 정보들 가져오기
   const fetchSatellitesToRender = async () => {
     console.log('Render할 인공위성 정보 가져오기 진행');
-
-    axios
-      .get('archive/getAround', {
-        params: {
-          userId: sessionStorage.getItem('userId'),
-        },
-        headers: { 'Content-type': 'application/json' },
-      })
-      .then(res => {
-        if (res.data.result === 'success') {
-          console.log('인공위성 정보 가져오기 성공');
-          window.sessionStorage.setItem(
-            'arounds',
-            JSON.stringify(res.data.arounds)
-          );
-          updateSatellitesToRender(res.data.arounds);
-        }
-      })
-      .catch(err => {
-        console.log('인공위성 정보 가져오기 에러');
-        console.log(err);
-      });
+    await fetchSatellites();
   };
 
   // input 보내기
@@ -83,6 +63,7 @@ export const CreateNewSatelliteInput = ({
             aroundCode: satelliteCode,
             title: title,
             content: content,
+            colorCode: satelliteCode,
             isAround: 1,
           },
           {

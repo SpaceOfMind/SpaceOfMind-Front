@@ -9,11 +9,11 @@ const ShowSatellites = ({ isZoomedIn }) => {
   const navigate = useNavigate();
 
   const positions = [
-    { x: '10vw', y: '25vh', degree: 20 },
+    { x: '10vw', y: '25vh', degree: -30 },
     { x: '40vw', y: '50vh', degree: 0 },
     { x: '60vw', y: '10vh', degree: 10 },
     { x: '30vw', y: '80vh', degree: 25 },
-    { x: '20vw', y: '65vh', degree: -40 },
+    { x: '20vw', y: '65vh', degree: -10 },
     { x: '76vw', y: '35vh', degree: 30 },
     { x: '10vw', y: '70vh', degree: 45 },
   ];
@@ -24,14 +24,14 @@ const ShowSatellites = ({ isZoomedIn }) => {
         colorCode: satellite.colorCode,
         x: positions[index].x,
         y: positions[index].y,
-        degree: positions[index].z,
+        degree: positions[index].degree,
       },
       component: (
         <Image
           key={index}
           w="340px"
           h="180px"
-          src={'satellites/satellite_' + (index + 1) + '.png'}
+          src={'satellites/satellite_' + (satellite.colorCode + 1) + '.png'}
           cursor="pointer"
           backgroundRepeat="no-repeat"
           onClick={() => navigate({ pathname: '/detail/around/' + index })}
