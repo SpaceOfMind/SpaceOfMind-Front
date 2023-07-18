@@ -6,6 +6,8 @@ import Header from '../../components/Header';
 
 const Away = () => {
 
+  const colorCode = parseInt(sessionStorage.getItem('colorCode'));
+
   return (
     <Box
       w="100%"
@@ -23,7 +25,12 @@ const Away = () => {
             top='25%'
             left='8%'
         >
-            <Image src={'/planets/planet_sphere1.png'} />
+            <Image 
+              src={
+                  '/planets/planet_sphere' +
+                  (colorCode + 1) +
+                  '.png'
+              } />
         </Flex>
         <ShowProbes />
       </Flex>

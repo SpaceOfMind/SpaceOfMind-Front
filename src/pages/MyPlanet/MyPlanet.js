@@ -21,6 +21,11 @@ import Header from "../../components/Header";
 
 const MyPlanet = () => {
 
+    const userName = sessionStorage.getItem('userName');
+    const userEmail = sessionStorage.getItem('userEmail');
+    const colorCode = parseInt(sessionStorage.getItem('colorCode'));
+    const planetCode = sessionStorage.getItem('planetCode');
+
     return (
         <Box
           w="100%"
@@ -38,11 +43,14 @@ const MyPlanet = () => {
             <Header selectedMenu={3} />
             <Center align="center" h="100vh" position='relative'>
                 <Image 
-                    src='planets/planet_sphere1.png' 
+                    src={
+                        '/planets/planet_sphere' +
+                        (colorCode + 1) +
+                        '.png'
+                    }
                     w='500px' 
                     h='500px' 
                     position='absolute' 
-                    transform='rotate(30deg)'
                     left='20%' 
                     bottom='10%'
                     opacity='0.5'
@@ -52,60 +60,33 @@ const MyPlanet = () => {
                         <div className="card-wrapper">
                         <Stack>
                             <CardHeader>
-                            <Heading size="lg">
-                                당신을 위한 우주에 <br /> 오신 것을 환영합니다.
-                            </Heading>
+                                <Heading size="lg">
+                                    {userName} 님의 행성 정보입니다
+                                </Heading>
+                                <Box width="100%" position="relative" padding="5">
+                                    <Divider borderColor="gray.300" />
+                                </Box>
                             </CardHeader>
-                            <Center>
-                            <Box width="100%" position="relative" padding="10">
-                                <Divider borderColor="gray.300" />
-                                <AbsoluteCenter bgColor="#3b3c57" px="4">
-                                계정에 로그인하세요.
-                                </AbsoluteCenter>
-                            </Box>
-                            </Center>
                             <CardBody fontSize="20px">
                             <Center width="100%">
                                 <Stack spacing={6}>
                                 <Center>
-                                    <Input
-                                    variant="flushed"
-                                    placeholder="Enter Email"
-                                    size="md"
-                                    // onChange={onChangeId}
-                                    />
+                                    <Text>
+                                        Email: {userEmail}
+                                    </Text>
                                 </Center>
                                 <Center>
-                                    <Input
-                                    variant="flushed"
-                                    placeholder="Enter Password"
-                                    size="md"
-                                    type="password"
-                                    // onChange={onChangePwd}
-                                    />
+                                    <Text>
+                                        행성 코드: {planetCode}
+                                    </Text>
                                 </Center>
-                                <Text fontSize="md">
-                                    계정이 없으신가요?{' '}
-                                    <Link to="/signUp">
-                                    <Text as="u">Sign Up</Text>
-                                    </Link>
-                                </Text>
-                                <Center>
+                                <Center paddingTop={10} >
                                     <Button
                                     width="300px"
                                     bgColor="gray.300"
                                     // onClick={onConfirmLogin}
                                     >
-                                    로그인
-                                    </Button>
-                                </Center>
-                                <Center>
-                                    <Button
-                                    // leftIcon={<ChatIcon />}
-                                    width="300px"
-                                    bgColor="gray.300"
-                                    >
-                                    카카오 계정으로 로그인
+                                    로그아웃
                                     </Button>
                                 </Center>
                                 </Stack>
