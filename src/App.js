@@ -11,6 +11,7 @@ import SignUp from './pages/SignUp/SignUp';
 import { CookiesProvider } from 'react-cookie';
 import Archive from './pages/Archive/Archive';
 import Around from './pages/Around/Around';
+import Away from './pages/Away/Away';
 import DetailObject from './pages/DetailObject/DetailObject';
 import { SatelliteProvider } from './contexts/satellite';
 import { ProbeProvider } from './contexts/probe';
@@ -27,25 +28,34 @@ const AppProvider = ({ contexts, children }) =>
 function App() {
   return (
     <AppProvider contexts={[SatelliteProvider, ProbeProvider]}>
-      <CookiesProvider>
-        <ChakraProvider theme={theme}>
-          <Box w="100%" h="100vh" bgImage="/background.jpg" bgSize="cover">
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Around />} />
-                <Route
-                  path="/detail/around/:objectId"
-                  element={<DetailObject />}
-                />
-                <Route path="/archive" element={<Archive />} />
-                <Route path="/login" element={<Authentication />} />
-                <Route path="/signUp" element={<SignUp />} />
-              </Routes>
-            </BrowserRouter>
-          </Box>
-        </ChakraProvider>
-      </CookiesProvider>
-    </AppProvider>
+    <CookiesProvider>
+      <ChakraProvider theme={theme}>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Around />} />
+              <Route
+                path="/detail/around/:objectId"
+                element={<DetailObject />}
+              />
+              <Route path="/archive" element={
+                  <Box
+                    w="100%" 
+                    h="100vh" 
+                    bgImage="/backgrounds/background.jpg" 
+                    bgSize="cover"
+                  >
+                    <Archive />
+                  </Box>
+                } />
+              <Route path="/away" element={<Away />}/>
+              <Route path="/login" element={<Authentication />} />
+              <Route path="/signUp" element={<SignUp />} />
+            </Routes>
+          </BrowserRouter>
+      </ChakraProvider>
+    </CookiesProvider>
+</AppProvider>
+
   );
 }
 

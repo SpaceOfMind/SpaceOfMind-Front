@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {
+  Box,
+} from '@chakra-ui/react';
 import axios from 'axios';
 import { Chrono } from 'react-chrono';
 import { BASE_URL } from '../../constant';
@@ -11,6 +14,7 @@ import ArchiveItem from '../../components/ArchiveItem/ArchiveItem';
 // user id를 어딘가에 저장해두도록...
 
 class Archive extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
