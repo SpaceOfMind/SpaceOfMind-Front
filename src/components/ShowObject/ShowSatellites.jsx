@@ -3,6 +3,7 @@ import { Flex, Image } from '@chakra-ui/react';
 import { SatelliteContext } from '../../contexts/satellite';
 import { useNavigate } from 'react-router-dom';
 import './ShowObject.scss';
+import classNames from 'classnames';
 
 const ShowSatellites = ({ isZoomedIn }) => {
   const { satellites } = useContext(SatelliteContext);
@@ -10,8 +11,8 @@ const ShowSatellites = ({ isZoomedIn }) => {
 
   const positions = [
     { x: '7vw', y: '25vh', degree: -45 },
-    { x: '70vw', y: '50vh', degree: -15 },
     { x: '55vw', y: '10vh', degree: 10 },
+    { x: '70vw', y: '50vh', degree: -15 },
     { x: '20vw', y: '60vh', degree: -15 },
     { x: '20vw', y: '65vh', degree: -10 },
     { x: '76vw', y: '35vh', degree: 30 },
@@ -52,7 +53,9 @@ const ShowSatellites = ({ isZoomedIn }) => {
       <Flex position="relative" w="100%" h="100%">
         {satellitesData.map((data, index) => (
           <div
-            className="map-object"
+            className={classNames('map-object-satellite', {
+              reverse: index % 2 === 0,
+            })}
             key={index}
             style={{
               position: 'absolute',

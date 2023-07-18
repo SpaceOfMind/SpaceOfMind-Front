@@ -44,11 +44,14 @@ const DetailAway = () => {
       {!showEmpty && (
         <div
           className="mount-animation"
-          style={{ position: 'absolute', bottom: 0, left: 6 }}
+          style={{ position: 'absolute', bottom: 60, left: 100 }}
         >
           <Image
             p="20"
             src={'/probes/probe_' + (currentProbe.colorCode + 1) + '.png'}
+            style={{
+              transform: `rotate(-30deg)`,
+            }}
           />
         </div>
       )}

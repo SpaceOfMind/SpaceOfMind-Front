@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Flex, Image } from '@chakra-ui/react';
 import { ProbeContext } from '../../contexts/probe';
 import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
 
 const ShowProbes = () => {
   // 현재 date
@@ -17,9 +18,9 @@ const ShowProbes = () => {
     { x: '76vw', y: '35vh', degree: 20 },
     { x: '15vw', y: '25vh', degree: -30 },
     { x: '50vw', y: '15vh', degree: 45 },
-    { x: '10vw', y: '75vh', degree: -15 },
-    { x: '75vw', y: '60vh', degree: 5 },
-    { x: '30vw', y: '80vh', degree: 25 },
+    { x: '10vw', y: '65vh', degree: -15 },
+    { x: '68vw', y: '60vh', degree: 5 },
+    { x: '30vw', y: '68vh', degree: 25 },
     { x: '20vw', y: '20vh', degree: -10 },
     { x: '10vw', y: '40vh', degree: 10 },
   ];
@@ -64,7 +65,9 @@ const ShowProbes = () => {
       <Flex position="relative" w="100%" h="100%">
         {probesData.map((data, index) => (
           <div
-            className="map-object"
+            className={classNames('map-object-probe', {
+              reverse: index % 2 === 0,
+            })}
             key={index}
             style={{
               position: 'absolute',
