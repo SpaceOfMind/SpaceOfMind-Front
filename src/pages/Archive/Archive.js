@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import {
-  Box,
-} from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import axios from 'axios';
 import { Chrono } from 'react-chrono';
 import { BASE_URL } from '../../constant';
 import { getCookie } from '../../utils/cookie';
 import ArchiveItem from '../../components/ArchiveItem/ArchiveItem';
+import Header from '../../components/Header';
 
 // TODO: json parsing 에러 처리
 // local storage에 저장된 데이터가 없는 경우 enable refresh
@@ -14,14 +13,13 @@ import ArchiveItem from '../../components/ArchiveItem/ArchiveItem';
 // user id를 어딘가에 저장해두도록...
 
 class Archive extends Component {
-  
   constructor(props) {
     super(props);
     this.state = {
       dateItems:
-        JSON.parse(window.localStorage.getItem('fetchedDateItems')) || [],
+        JSON.parse(window.sessionStorage.getItem('fetchedDateItems')) || [],
       customContents:
-        JSON.parse(window.localStorage.getItem('fetchedContents')).map(
+        JSON.parse(window.sessionStorage.getItem('fetchedContents')).map(
           (item, i) => {
             return (
               <ArchiveItem
@@ -32,76 +30,59 @@ class Archive extends Component {
             );
           }
         ) || [],
+      chronoHeight: document.documentElement.clientHeight - 84,
     };
   }
 
-  componentDidMount() {
-    console.log(`파싱된 쿠키: ${getCookie('connect.sid')}`);
-  }
-
-  fetchData = async () => {
-    try {
-      const res = await axios({
-        method: 'get',
-        url: BASE_URL + '/archive/getAll',
-        params: { userId: 1 }, // TODO: userId local Storage에 저장하기
-        headers: {
-          'Content-type': 'application/json',
-          Cookie: getCookie('connect.sid'), // TODO: react-cookie 잘 가져와지는지 test
-        },
-      });
-
-      if (res.data.result === 'success') {
-        console.log(`success to fetch data!`);
-        const fetchedContents = [];
-        const fetchedDateItems = [];
-        res.data.archives.forEach((archive, index) => {
-          fetchedDateItems.push({
-            title: archive.createdAt.split('.')[0].replace('T', ' '),
-          });
-          fetchedContents.push(
-            <ArchiveItem
-              keyArchive={index}
-              titleArchive={archive.title}
-              contentArchive={archive.content}
-            />
-          );
-        });
-
-        console.log(`length of fetchedContents: ${fetchedContents.length}`);
-        console.log(`length of fetchedDateItems: ${fetchedDateItems.length}`);
-
-        this.setState(
-          {
-            dateItems: [...fetchedDateItems],
-            customContents: [...fetchedContents],
-          },
-          this.forceUpdate()
-        );
-      }
-    } catch (error) {
-      // Handle errors if necessary
-      console.error(error);
-    }
+  calculateHeight = () => {
+    const viewportHeight = document.documentElement.clientHeight - 84;
+    this.setState({ chronoHeight: viewportHeight - 84 });
   };
 
+  componentDidMount() {
+    console.log(`파싱된 쿠키: ${getCookie('connect.sid')}`);
+    this.calculateHeight();
+    window.addEventListener('resize', this.calculateHeight);
+  }
+  componentWillUnmount() {
+    // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거
+    window.removeEventListener('resize', this.calculateHeight);
+  }
   render() {
-    const { dateItems, customContents } = this.state;
+    const { dateItems, customContents, viewportHeight } = this.state;
     return (
-      <Chrono
-        items={dateItems}
-        mode="VERTICAL_ALTERNATING"
-        theme={{
-          primary: '#718fa7',
-          secondary: '#1d6291',
-          cardBgColor: '#f7e8e1',
-          titleColor: '#88a2bd',
-          titleColorActive: '#ffffff',
-          cardTitleColor: '#1d6291',
-        }}
+      <Box
+        w="100%"
+        h="100vh"
+        bgImage="/backgrounds/background.jpg"
+        bgSize="cover"
       >
-        {customContents}
-      </Chrono>
+        <Flex direction="column">
+          <Header selectedMenu={2} />
+          <Box
+            h={
+              document.documentElement.clientHeight - 84 > 0
+                ? document.documentElement.clientHeight - 84
+                : '400px'
+            }
+          >
+            <Chrono
+              items={dateItems}
+              mode="VERTICAL_ALTERNATING"
+              theme={{
+                primary: '#718fa7',
+                secondary: '#144B71',
+                cardBgColor: '#C0C4DE',
+                titleColor: '#88a2bd',
+                titleColorActive: '#ffffff',
+                cardTitleColor: '#144B71',
+              }}
+            >
+              {customContents}
+            </Chrono>
+          </Box>
+        </Flex>
+      </Box>
     );
   }
 }
