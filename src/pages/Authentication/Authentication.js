@@ -18,6 +18,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import useFetchArchiveData from '../../utils/useFetchArchiveData';
+import { BASE_URL } from '../../constant';
 
 const Authentication = () => {
   const [inputId, setInputId] = useState('');
@@ -36,16 +37,14 @@ const Authentication = () => {
   };
 
   const onConfirmLogin = () => {
-    axios
-      .post(
-        '/auth/login',
-        { userEmail: inputId, userPwd: inputPwd },
-        {
-          headers: { 'Content-type': 'application/json' },
-          withCredentials: true,
-        }
-      )
-      .then(res => {
+
+    axios({
+      method: 'post', 
+      url: BASE_URL + '/auth/login', 
+      headers: {'Content-type': 'application/json'},
+        withCredentials: true,
+      data: { userEmail: inputId, userPwd: inputPwd }
+    }).then(res => {
         if (res.data.result === 'success') {
           sessionStorage.setItem('userId', res.data.userId);
           sessionStorage.setItem('planetCode', res.data.planetCode);

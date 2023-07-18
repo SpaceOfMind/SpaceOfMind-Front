@@ -11,6 +11,7 @@ import {
 import { Probe1, Probe2, Probe3, Probe4 } from './Probes/Probe';
 import axios from 'axios';
 import useFetchArchiveData from '../utils/useFetchArchiveData';
+import { BASE_URL } from '../constant';
 
 export const CreateNewProbeInput = ({
   handleZoomOut,
@@ -56,23 +57,19 @@ export const CreateNewProbeInput = ({
     if (validTitle && validContent) {
       const probeCode = fetchCurrentProbeCode();
 
-      axios
-        .post(
-          '/archive/postInfo',
-          {
-            userId: sessionStorage.getItem('userId'), // dummy
-            colorCode: probeCode,
-            title: title,
-            destination: destination,
-            content: content,
-            isAround: 0,
-          },
-          {
-            headers: { 'Content-type': 'application/json' },
-            // withCredentials: true,
-          }
-        )
-        .then(res => {
+      axios({
+        method: 'post', 
+        url: BASE_URL + '/archive/postInfo',
+        data: {
+          userId: sessionStorage.getItem('userId'), // dummy
+          colorCode: probeCode,
+          title: title,
+          destination: destination,
+          content: content,
+          isAround: 0,
+        },
+        headers: { 'Content-type': 'application/json' },
+      }).then(res => {
           if (res.data.result === 'success') {
             console.log('탐사선 발사 성공');
 
