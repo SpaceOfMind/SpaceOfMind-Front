@@ -55,14 +55,13 @@ function useFetchArchiveData() {
   };
 
   const fetchSatellites = useCallback(async () => {
-    await axios
-      .get('archive/getAround', {
-        params: {
-          userId: sessionStorage.getItem('userId'),
-        },
-        headers: { 'Content-type': 'application/json' },
-      })
-      .then(res => {
+    await axios({
+      method: 'get', url: BASE_URL + '/archive/getAround',
+      params: {
+        userId: sessionStorage.getItem('userId'),
+      },
+      headers: { 'Content-type': 'application/json' },
+    }).then(res => {
         if (res.data.result === 'success') {
           console.log('인공위성 정보 가져오기 성공');
           updateSatellite(res.data.arounds);
@@ -75,14 +74,14 @@ function useFetchArchiveData() {
   }, [updateSatellite]);
 
   const fetchProbes = useCallback(async () => {
-    await axios
-      .get('archive/getAway', {
-        params: {
-          userId: sessionStorage.getItem('userId'),
-        },
-        headers: { 'Content-type': 'application/json' },
-      })
-      .then(res => {
+    await axios({
+      method: 'get',
+      url: BASE_URL + '/archive/getAway',
+      params: {
+        userId: sessionStorage.getItem('userId'),
+      },
+      headers: { 'Content-type': 'application/json' },
+    }).then(res => {
         if (res.data.result === 'success') {
           console.log('탐사선 정보 가져오기 성공');
           updateProbe(res.data.aways);

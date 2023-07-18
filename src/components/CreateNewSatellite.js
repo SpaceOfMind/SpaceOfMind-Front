@@ -8,6 +8,7 @@ import {
 } from './Satellites/Satellite';
 import axios from 'axios';
 import useFetchArchiveData from '../utils/useFetchArchiveData';
+import { BASE_URL } from '../constant';
 
 export const CreateNewSatelliteInput = ({
   handleZoomOut,
@@ -51,21 +52,18 @@ export const CreateNewSatelliteInput = ({
     if (validTitle && validContent) {
       const satelliteCode = fetchCurrentSatelliteCode();
 
-      axios
-        .post(
-          '/archive/postInfo',
-          {
-            userId: sessionStorage.getItem('userId'),
-            colorCode: satelliteCode,
-            title: title,
-            content: content,
-            isAround: 1,
-          },
-          {
-            headers: { 'Content-type': 'application/json' },
-            // withCredentials: true,
-          }
-        )
+      axios({
+        method: 'post', 
+        url: BASE_URL + '/archive/postInfo',
+        data:{
+          userId: sessionStorage.getItem('userId'),
+          colorCode: satelliteCode,
+          title: title,
+          content: content,
+          isAround: 1,
+        },             
+        headers: { 'Content-type': 'application/json' },
+      })
         .then(res => {
           if (res.data.result === 'success') {
             console.log('위성 발사 성공');
