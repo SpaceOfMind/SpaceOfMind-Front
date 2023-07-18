@@ -66,8 +66,9 @@ export const CreateNewProbeInput = ({
           '/archive/postInfo',
           {
             userId: sessionStorage.getItem('userId'), // dummy
-            aroundCode: probeCode,
+            colorCode: probeCode,
             title: title,
+            destination: destination,
             content: content,
             isAround: 0,
           },

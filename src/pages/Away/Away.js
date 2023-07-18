@@ -1,19 +1,10 @@
 import React from 'react';
 import { Box, Button, Flex, Image } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
 import './Away.scss';
+import ShowProbes from "../../components/ShowProbes";
 import Header from '../../components/Header';
 
 const Away = () => {
-  const navigate = useNavigate();
-
-  const moveToArchivePage = () => {
-    navigate('/archive');
-  };
-
-  const moveToAroundPage = () => {
-    navigate('/');
-  };
 
   return (
     <Box
@@ -25,6 +16,16 @@ const Away = () => {
     >
       <Flex direction="column">
         <Header selectedMenu={1} />
+        <Flex       // 내 행성 display
+            position='absolute'
+            w='120px'
+            h='120px'
+            top='25%'
+            left='8%'
+        >
+            <Image src={'/planets/planet_sphere1.png'} />
+        </Flex>
+        <ShowProbes />
       </Flex>
     </Box>
   );
