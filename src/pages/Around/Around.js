@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { BASE_URL } from '../../constant';
 import { getCookie } from '../../utils/cookie';
+import ShowSatellites from '../../components/ShowSatellites';
 
 const Around = () => {
   // 마우스가 움직이면 버튼을 보이게 하기
@@ -109,6 +110,7 @@ const Around = () => {
         bgImage="/planets/planet_1.png"
         bgSize="cover"
         className={`main-container ${isZoomedIn ? 'zoomed-in' : ''}`}
+        position='relative'
       >
         <Image // 로고 placeholder
           position="absolute"
@@ -195,6 +197,7 @@ const Around = () => {
             내 행성
           </Button>
         </Flex>
+        {/* <ShowSatellites isZoomedIn={isZoomedIn} handleZoomOut={handleZoomOut} />    orbit 위 위성들 render & display */}
         <Flex
           position="absolute"
           bottom={0}
