@@ -36,9 +36,10 @@ const Header = ({ selectedMenu }) => {
   return (
     <Flex w="100%" h="84px" p="6px" justify="space-between">
       <Image // 로고 placeholder
-        m="2px"
-        boxSize="60px"
-        src="/robot-run.gif"
+        m="15px"
+        boxSize="55px"
+        // src="/robot-run.gif"
+        src="/logo.png"
         cursor="pointer"
       />
       <Flex align="center" justify="space-around" m="6px" p={3}>
