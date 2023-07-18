@@ -5,7 +5,7 @@ import './Probe.scss';
 export const Probe1 = ({ inOrbit }) => {
     return (
         <Box 
-            className={`container ${ inOrbit ? 'small' : ''} probe-1`}
+            className={`probe-container ${ inOrbit ? 'small' : ''} probe-1`}
         />
     );
 };
@@ -13,7 +13,7 @@ export const Probe1 = ({ inOrbit }) => {
 export const Probe2 = ({ inOrbit }) => {
     return (
         <Box 
-            className={`container ${ inOrbit ? 'small' : ''} probe-2`}
+            className={`probe-container ${ inOrbit ? 'small' : ''} probe-2`}
         />
     );
 };
@@ -21,7 +21,7 @@ export const Probe2 = ({ inOrbit }) => {
 export const Probe3 = ({ inOrbit }) => {
     return (
         <Box 
-            className={`container ${ inOrbit ? 'small' : ''} probe-3`}
+            className={`probe-container ${ inOrbit ? 'small' : ''} probe-3`}
         />
     );
 };
@@ -29,7 +29,7 @@ export const Probe3 = ({ inOrbit }) => {
 export const Probe4 = ({ inOrbit }) => {
     return (
         <Box 
-            className={`container ${ inOrbit ? 'small' : ''} probe-4`}
+            className={`probe-container ${ inOrbit ? 'small' : ''} probe-4`}
         />
     );
 };
