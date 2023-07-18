@@ -7,6 +7,7 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import './Away.scss';
+import ShowProbes from "../../components/ShowProbes";
 
 const Away = () => {
 
@@ -47,73 +48,83 @@ const Away = () => {
                 m={3}
                 p={3}
             >
-            <Button
-                color="whiteAlpha.600" 
-                fontSize="1.2em"
-                bgColor="transparent"
-                _hover={{
+                <Button
+                    color="whiteAlpha.600" 
+                    fontSize="1.2em"
+                    bgColor="transparent"
+                    _hover={{
+                        color: 'whiteAlpha.900',
+                        transform: 'scale(1.1)',
+                    }}
+                    _active={{
+                        color: 'whiteAlpha.900',
+                        transform: 'scale(1.1)',
+                        bg: 'whiteAlpha.200',
+                    }}
+                    onClick={moveToAroundPage}
+                >
+                    가까이 보기
+                </Button>
+                <Button
+                    color="whiteAlpha.900"      // 현재 위치하고 있는 메뉴
+                    fontSize="1.2em"
+                    bgColor="transparent"
+                    _hover={{
+                        color: 'whiteAlpha.900',
+                        transform: 'scale(1.1)',
+                    }}
+                    _active={{
+                        color: 'whiteAlpha.900',
+                        transform: 'scale(1.1)',
+                        bg: 'whiteAlpha.200',
+                    }}
+                >
+                    멀리 보기
+                </Button>
+                <Button
+                    color="whiteAlpha.600"
+                    fontSize="1.2em"
+                    bgColor="transparent"
+                    _hover={{
+                        color: 'whiteAlpha.900',
+                        transform: 'scale(1.1)',
+                    }}
+                    _active={{
+                        color: 'whiteAlpha.900',
+                        transform: 'scale(1.1)',
+                        bg: 'whiteAlpha.200',
+                    }}
+                    onClick={moveToArchivePage}
+                >
+                    마음기록
+                </Button>
+                <Button
+                    color="whiteAlpha.600"
+                    fontSize="1.2em"
+                    bgColor="transparent"
+                    _hover={{
                     color: 'whiteAlpha.900',
                     transform: 'scale(1.1)',
-                }}
-                _active={{
+                    }}
+                    _active={{
                     color: 'whiteAlpha.900',
                     transform: 'scale(1.1)',
                     bg: 'whiteAlpha.200',
-                }}
-                onClick={moveToAroundPage}
-            >
-                가까이 보기
-            </Button>
-            <Button
-                color="whiteAlpha.900"      // 현재 위치하고 있는 메뉴
-                fontSize="1.2em"
-                bgColor="transparent"
-                _hover={{
-                    color: 'whiteAlpha.900',
-                    transform: 'scale(1.1)',
-                }}
-                _active={{
-                    color: 'whiteAlpha.900',
-                    transform: 'scale(1.1)',
-                    bg: 'whiteAlpha.200',
-                }}
-            >
-                멀리 보기
-            </Button>
-            <Button
-                color="whiteAlpha.600"
-                fontSize="1.2em"
-                bgColor="transparent"
-                _hover={{
-                    color: 'whiteAlpha.900',
-                    transform: 'scale(1.1)',
-                }}
-                _active={{
-                    color: 'whiteAlpha.900',
-                    transform: 'scale(1.1)',
-                    bg: 'whiteAlpha.200',
-                }}
-                onClick={moveToArchivePage}
-            >
-                마음기록
-            </Button>
-            <Button
-                color="whiteAlpha.600"
-                fontSize="1.2em"
-                bgColor="transparent"
-                _hover={{
-                color: 'whiteAlpha.900',
-                transform: 'scale(1.1)',
-                }}
-                _active={{
-                color: 'whiteAlpha.900',
-                transform: 'scale(1.1)',
-                bg: 'whiteAlpha.200',
-                }}
-            >
-                내 행성
-            </Button>
+                    }}
+                >
+                    내 행성
+                </Button>
             </Flex>
+            <Flex       // 내 행성 display
+                position='absolute'
+                w='120px'
+                h='120px'
+                top='25%'
+                left='8%'
+            >
+                <Image src={'/planets/planet_sphere1.png'} />
+            </Flex>
+            <ShowProbes />
         </Box>
     );
 };

@@ -2,42 +2,34 @@ import React from "react";
 import { Box } from '@chakra-ui/react';
 import './Probe.scss';
 
-export const Probe1 = () => {
+export const Probe1 = ({ inOrbit }) => {
     return (
         <Box 
-            className="container probe-1"
-            h='250px'
-            w='120px'
+            className={`container ${ inOrbit ? 'small' : ''} probe-1`}
         />
     );
 };
 
-export const Probe2 = () => {
+export const Probe2 = ({ inOrbit }) => {
     return (
         <Box 
-            className="container probe-2"
-            h='250px'
-            w='120px'
+            className={`container ${ inOrbit ? 'small' : ''} probe-2`}
         />
     );
 };
 
-export const Probe3 = () => {
+export const Probe3 = ({ inOrbit }) => {
     return (
         <Box 
-            className="container probe-3"
-            h='250px'
-            w='120px'
+            className={`container ${ inOrbit ? 'small' : ''} probe-3`}
         />
     );
 };
 
-export const Probe4 = () => {
+export const Probe4 = ({ inOrbit }) => {
     return (
         <Box 
-            className="container probe-4"
-            h='250px'
-            w='120px'
+            className={`container ${ inOrbit ? 'small' : ''} probe-4`}
         />
     );
 };
