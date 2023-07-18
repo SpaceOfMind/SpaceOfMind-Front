@@ -1,5 +1,5 @@
 import { Image } from '@chakra-ui/image';
-import { Flex } from '@chakra-ui/layout';
+import { Box, Flex } from '@chakra-ui/layout';
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import './Detail.scss';
@@ -36,16 +36,28 @@ const DetailObject = () => {
   }, []);
 
   return (
-    <>
+    <Box
+      w="100%"
+      h="100vh"
+      bgImage="/backgrounds/background.jpg"
+      bgSize="cover"
+    >
+      {' '}
       {!showEmpty && (
         <div
           className="mount-animation"
           style={{ position: 'absolute', bottom: 0, left: 6 }}
         >
-          <Image p="20" src="/satellites/satellite_3.png" />
+          <Image
+            p="20"
+            src={
+              '/satellites/satellite_' +
+              (currentSatellite.colorCode + 1) +
+              '.png'
+            }
+          />
         </div>
       )}
-
       {!showEmptyMore && (
         <div
           className="mount-animation"
@@ -67,7 +79,7 @@ const DetailObject = () => {
           </Flex>
         </div>
       )}
-    </>
+    </Box>
   );
 };
 

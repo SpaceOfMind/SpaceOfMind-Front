@@ -1,57 +1,11 @@
-import React, { useEffect } from 'react';
-import { Box, Flex, Image, Button } from '@chakra-ui/react';
+import React from 'react';
+import { Flex, Image, Button } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { BASE_URL } from '../constant';
-import { getCookie } from '../utils/cookie';
+import useFetchArchiveData from '../utils/useFetchArchiveData';
 
 const Header = ({ selectedMenu }) => {
   const navigate = useNavigate();
-
-  const fetchArchiveData = async () => {
-    try {
-      const res = await axios({
-        method: 'get',
-        url: BASE_URL + '/archive/getAll',
-        params: { userId: 1 },
-        headers: {
-          'Content-type': 'application/json',
-          Cookie: getCookie('connect.sid'),
-        },
-      });
-
-      if (res.data.result === 'success') {
-        const fetchedContents = [];
-        const fetchedDateItems = [];
-        res.data.archives.forEach((archive, index) => {
-          fetchedDateItems.push({
-            title: archive.createdAt.split('.')[0].replace('T', ' '),
-          });
-          fetchedContents.push({
-            titleArchive: archive.title,
-            contentArchive: archive.content,
-          });
-        });
-
-        window.sessionStorage.setItem(
-          'fetchedContents',
-          JSON.stringify(fetchedContents)
-        );
-        window.sessionStorage.setItem(
-          'fetchedDateItems',
-          JSON.stringify(fetchedDateItems)
-        );
-
-        return true;
-      }
-
-      return false;
-    } catch (error) {
-      // Handle errors if necessary
-      console.error(error);
-      return false;
-    }
-  };
+  const [fetchArchives] = useFetchArchiveData();
 
   const moveToAround = async () => {
     if (!sessionStorage.getItem('satellites')) {
@@ -63,7 +17,7 @@ const Header = ({ selectedMenu }) => {
   };
   const moveToArchive = async () => {
     // TODO: local storage가 비었을 때 fetch 해오도록 함
-    fetchArchiveData().then(() => {
+    fetchArchives().then(() => {
       navigate('/archive');
     });
   };

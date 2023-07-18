@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Flex, Button, Spacer } from '@chakra-ui/react';
 import { Icon } from '@chakra-ui/react';
 import { PiPlanetFill } from 'react-icons/pi';
@@ -48,29 +48,6 @@ const CreateNewObject = ({ isZoomedIn, handleZoomOut }) => {
   const fetchCurrentProbeCode = () => {
     return currentProbeCode;
   };
-
-  // render 할 위성들 정보
-  const [satellitesToRender, setSatellitesToRender] = useState([]);
-
-  const updateSatellitesToRender = fetched => {
-    // TODO: session storage에서 받아옴
-    setSatellitesToRender(fetched);
-  };
-
-  // render 할 탐사선 정보
-  const [probesToRender, setProbesToRender] = useState([]);
-
-  const updateProbesToRender = fetched => {
-    setProbesToRender(fetched);
-  };
-
-  useEffect(() => {
-    console.log('satellites to render: ', satellitesToRender);
-  }, [satellitesToRender]); // render 할 위성 정보 다시 가져옴
-
-  useEffect(() => {
-    console.log('probes to render: ', probesToRender);
-  }, [probesToRender]); // render 할 탐사선 정보 다시 가져옴
 
   return (
     <Flex
@@ -134,13 +111,11 @@ const CreateNewObject = ({ isZoomedIn, handleZoomOut }) => {
           <CreateNewSatelliteInput
             handleZoomOut={handleZoomOut}
             fetchCurrentSatelliteCode={fetchCurrentSatelliteCode}
-            updateSatellitesToRender={updateSatellitesToRender}
           />
         ) : (
           <CreateNewProbeInput
             handleZoomOut={handleZoomOut}
             fetchCurrentProbeCode={fetchCurrentProbeCode}
-            updateProbesToRender={updateProbesToRender}
           />
         )}
       </Flex>

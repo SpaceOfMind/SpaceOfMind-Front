@@ -1,13 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Box, Button, Center, Flex, Image, StatLabel } from '@chakra-ui/react';
+import { Box, Button, Flex } from '@chakra-ui/react';
 import './Around.scss';
 import CreateNewObject from '../../components/CreateNewObject';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { BASE_URL } from '../../constant';
-import { getCookie } from '../../utils/cookie';
 import ShowSatellites from '../../components/ShowSatellites';
-import { SatelliteContext } from '../../contexts/satellite';
 import Header from '../../components/Header';
 
 const Around = () => {
@@ -15,8 +10,6 @@ const Around = () => {
   const [isHovered, setIsHovered] = useState(false);
   // 확대 transition
   const [isZoomedIn, setIsZoomedIn] = useState(false);
-
-  const { satellites, updateSatellite } = useContext(SatelliteContext);
 
   const handleZoomIn = () => {
     setIsZoomedIn(true);
