@@ -1,7 +1,13 @@
 
 .container {
-    // width: 300px; // Adjust the width and height according to your sprite frame size
-    // height: 200px;
+
+    width: 340px;
+    height: 180px;
+
+    &.small {
+        width: 200px;
+        height: 105px;
+    }
 
     &.satellite-1 {
         background-image: url('../../../public/satellites/satellite_1.png');

@@ -1,10 +1,22 @@
 
-.create-new-satellite-input-container {
+// .create-new-satellite-input-container {
 
+//     opacity: 0;
+//     transition: opacity 1s ease;
+
+//     &.visible {
+//         opacity: 1;
+//     }
+// }
+
+.new-container {
+    /* Invisible by default */
     opacity: 0;
-    transition: opacity 1s ease;
+    pointer-events: none;
 
     &.visible {
+
         opacity: 1;
+        pointer-events: all;
     }
 }

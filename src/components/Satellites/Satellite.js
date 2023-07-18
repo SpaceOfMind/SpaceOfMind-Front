@@ -2,42 +2,35 @@ import React from "react";
 import { Box } from '@chakra-ui/react';
 import './Satellite.scss';
 
-export const Satellite1 = () => {
+export const Satellite1 = ({ inOrbit }) => {
     return (
         <Box 
-            className="container satellite-1"
-            w='340px'
-            h='180px'
+            className={`container ${inOrbit ? 'small' : ''} satellite-1`}
+
         />
     );
 };
 
-export const Satellite2 = () => {
+export const Satellite2 = ({ inOrbit }) => {
     return (
         <Box 
-            className="container satellite-2"
-            w='340px'
-            h='180px'
+            className={`container ${inOrbit ? 'small' : ''} satellite-2`}
         />
     );
 };
 
-export const Satellite3 = () => {
+export const Satellite3 = ({ inOrbit }) => {
     return (
         <Box 
-            className="container satellite-3"
-            w='340px'
-            h='180px'
+            className={`container ${inOrbit ? 'small' : ''} satellite-3`}
         />
     );
 };
 
-export const Satellite4 = () => {
+export const Satellite4 = ({ inOrbit }) => {
     return (
         <Box 
-            className="container satellite-4"
-            w='340px'
-            h='180px'
+            className={`container ${inOrbit ? 'small' : ''} satellite-4`}
         />
     );
 };
