@@ -1,0 +1,12 @@
+.mount-animation {
+  animation: 0.7s ease-in-out loadEffect;
+}
+
+@keyframes loadEffect {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

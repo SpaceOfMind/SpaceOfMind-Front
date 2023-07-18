@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Button,
-  Flex,
-  Image,
-} from '@chakra-ui/react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Box, Button, Center, Flex, Image, StatLabel } from '@chakra-ui/react';
 import './Around.scss';
 import CreateNewObject from '../../components/CreateNewObject';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { BASE_URL } from '../../constant';
 import { getCookie } from '../../utils/cookie';
+import { SatelliteContext } from '../../contexts/satellite';
 
 const Around = () => {
   // 마우스가 움직이면 버튼을 보이게 하기
   const [isHovered, setIsHovered] = useState(false);
   // 확대 transition
   const [isZoomedIn, setIsZoomedIn] = useState(false);
+
+  const { satellites, updateSatellite } = useContext(SatelliteContext);
 
   const handleZoomIn = () => {
     setIsZoomedIn(true);
@@ -48,10 +46,16 @@ const Around = () => {
   const navigate = useNavigate();
 
   const moveToArchivePage = async () => {
-    fetchData().then(() => navigate('/archive'));
+    fetchArchiveData().then(result => {
+      if (result) {
+        navigate('/archive');
+      } else {
+        console.log(`failed to get archive data from server`);
+      }
+    });
   };
 
-  const fetchData = async () => {
+  const fetchArchiveData = async () => {
     try {
       const res = await axios({
         method: 'get',
@@ -64,7 +68,6 @@ const Around = () => {
       });
 
       if (res.data.result === 'success') {
-        console.log(`success to fetch data!`);
         const fetchedContents = [];
         const fetchedDateItems = [];
         res.data.archives.forEach((archive, index) => {
@@ -77,9 +80,6 @@ const Around = () => {
           });
         });
 
-        console.log(`length of fetchedContents: ${fetchedContents.length}`);
-        console.log(`length of fetchedDateItems: ${fetchedDateItems.length}`);
-
         window.localStorage.setItem(
           'fetchedContents',
           JSON.stringify(fetchedContents)
@@ -88,10 +88,15 @@ const Around = () => {
           'fetchedDateItems',
           JSON.stringify(fetchedDateItems)
         );
+
+        return true;
       }
+
+      return false;
     } catch (error) {
       // Handle errors if necessary
       console.error(error);
+      return false;
     }
   };
 
@@ -116,7 +121,6 @@ const Around = () => {
         position="absolute"
         top={0}
         right={0}
-        w="30%"
         h="8%"
         align="center"
         justify="space-around"
@@ -221,6 +225,21 @@ const Around = () => {
           우주로 보내기
         </Button>
       </Flex>
+
+      <Center h="100vh">
+        {satellites.map((satellite, index) => {
+          return (
+            <Button
+              key={index}
+              onClick={() => navigate({ pathname: '/detail/around/' + index })}
+            >
+              인공위성{index} 상세 페이지 <br />
+              title: {satellite.title}
+            </Button>
+          );
+        })}
+      </Center>
+
       <CreateNewObject isZoomedIn={isZoomedIn} handleZoomOut={handleZoomOut} />
     </Box>
   );
