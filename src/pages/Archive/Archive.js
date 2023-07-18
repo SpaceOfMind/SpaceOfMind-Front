@@ -44,10 +44,12 @@ class Archive extends Component {
     this.calculateHeight();
     window.addEventListener('resize', this.calculateHeight);
   }
+
   componentWillUnmount() {
     // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거
     window.removeEventListener('resize', this.calculateHeight);
   }
+
   render() {
     const { dateItems, customContents, viewportHeight } = this.state;
     return (

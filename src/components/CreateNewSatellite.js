@@ -43,7 +43,7 @@ export const CreateNewSatelliteInput = ({
     axios
       .get('archive/getAround', {
         params: {
-          userId: 1, // TODO: dummy
+          userId: sessionStorage.getItem('userId'),
         },
         headers: { 'Content-type': 'application/json' },
       })
@@ -79,7 +79,7 @@ export const CreateNewSatelliteInput = ({
         .post(
           '/archive/postInfo',
           {
-            userId: 1, // dummy
+            userId: sessionStorage.getItem('userId'),
             aroundCode: satelliteCode,
             title: title,
             content: content,

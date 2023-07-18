@@ -48,7 +48,7 @@ export const CreateNewProbeInput = ({
     axios
       .get('archive/getAway', {
         params: {
-          userId: 1, // dummy
+          userId: sessionStorage.getItem('userId'), // dummy
         },
         headers: { 'Content-type': 'application/json' },
       })
@@ -83,7 +83,7 @@ export const CreateNewProbeInput = ({
         .post(
           '/archive/postInfo',
           {
-            userId: 1, // dummy
+            userId: sessionStorage.getItem('userId'), // dummy
             aroundCode: probeCode,
             title: title,
             content: content,
