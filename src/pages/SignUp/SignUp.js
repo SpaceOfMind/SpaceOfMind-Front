@@ -96,7 +96,7 @@ const SignUp = () => {
           userEmail: email,
           userPwd: pwd,
           userName: name,
-          planetCode: colorCode,
+          colorCode: colorCode,
         },
       }).then(res => {
         console.log(`sign up response: ${res}`);
