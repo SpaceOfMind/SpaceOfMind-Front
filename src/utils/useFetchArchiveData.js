@@ -24,12 +24,14 @@ function useFetchArchiveData() {
       if (res.data.result === 'success') {
         const fetchedContents = [];
         const fetchedDateItems = [];
-        res.data.archives.forEach((archive, index) => {
+        res.data.archives.forEach(archive => {
           fetchedDateItems.push({
             title: archive.createdAt.split('.')[0].replace('T', ' '),
           });
           fetchedContents.push({
             titleArchive: archive.title,
+            isAround: archive.isAround,
+            from: archive.from,
             contentArchive: archive.content,
           });
         });
