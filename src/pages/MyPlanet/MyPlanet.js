@@ -28,8 +28,8 @@ const MyPlanet = () => {
 
   const navigate = useNavigate();
 
-  const COOKIE_KEY = 'connect.sid'; // 상수화시킨 쿠키 값을 넣어줬다.
-  const [, , removeCookie] = useCookies([COOKIE_KEY]); // 쓰지 않는 변수는 (공백),처리해주고 removeCookie 옵션만 사용한다
+  // const COOKIE_KEY = 'connect.sid'; // 상수화시킨 쿠키 값을 넣어줬다.
+  // const [, , removeCookie] = useCookies([COOKIE_KEY]); // 쓰지 않는 변수는 (공백),처리해주고 removeCookie 옵션만 사용한다
 
   const onConfirmLogout = async () => {
     await axios
@@ -39,7 +39,7 @@ const MyPlanet = () => {
         },
         headers: {
           'Content-type': 'application/json',
-          Cookie: getCookie('connect.sid'),
+          // Cookie: getCookie('connect.sid'),
         },
       })
       .then(res => {
@@ -52,7 +52,7 @@ const MyPlanet = () => {
           sessionStorage.removeItem('colorCode', res.data.colorCode);
           sessionStorage.removeItem('planetCode', res.data.planetCode);
 
-          removeCookie(COOKIE_KEY, { path: '/' });
+          // removeCookie(COOKIE_KEY, { path: '/' });
 
           console.log('세션 스토리지 삭제 완료');
           navigate('/');
