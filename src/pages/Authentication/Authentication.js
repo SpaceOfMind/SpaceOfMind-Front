@@ -47,6 +47,9 @@ const Authentication = () => {
     }).then(res => {
         if (res.data.result === 'success') {
           sessionStorage.setItem('userId', res.data.userId);
+          sessionStorage.setItem('userName', res.data.userName);
+          sessionStorage.setItem('userEmail', res.data.userEmail);
+          sessionStorage.setItem('colorCode', res.data.colorCode);
           sessionStorage.setItem('planetCode', res.data.planetCode);
 
           fetchAllData().then(() => {
@@ -74,7 +77,7 @@ const Authentication = () => {
     >
       <Center align="center" h="100vh">
         <Stack>
-          <img src="./robot-run.gif" alt="running robot" width="50px" />
+          {/* <img src="./robot-run.gif" alt="running robot" width="50px" /> */}
           <Card w="500px" h="100%" bgColor="whiteAlpha.300">
             <div className="card-wrapper">
               <Stack>
@@ -141,7 +144,7 @@ const Authentication = () => {
               </Stack>
             </div>
           </Card>
-          <Box h="50px" />
+          {/* <Box h="50px" /> */}
         </Stack>
       </Center>
     </Box>

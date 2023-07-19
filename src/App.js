@@ -16,6 +16,7 @@ import DetailAround from './pages/DetailObject/DetailAround';
 import DetailAway from './pages/DetailObject/DetailAway';
 import { SatelliteProvider } from './contexts/satellite';
 import { ProbeProvider } from './contexts/probe';
+import MyPlanet from './pages/MyPlanet/MyPlanet';
 
 const AppProvider = ({ contexts, children }) =>
   contexts.reduce(
@@ -27,6 +28,7 @@ const AppProvider = ({ contexts, children }) =>
   );
 
 function App() {
+
   return (
     <AppProvider contexts={[SatelliteProvider, ProbeProvider]}>
       <CookiesProvider>
@@ -43,6 +45,7 @@ function App() {
               <Route path="/away" element={<Away />} />
               <Route path="/around" element={<Around />} />
               <Route path="/signUp" element={<SignUp />} />
+              <Route path="/myPlanet" element={<MyPlanet />} />
             </Routes>
           </BrowserRouter>
         </ChakraProvider>

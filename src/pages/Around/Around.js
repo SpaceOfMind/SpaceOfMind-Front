@@ -6,6 +6,9 @@ import ShowSatellites from '../../components/ShowObject/ShowSatellites';
 import Header from '../../components/Header';
 
 const Around = () => {
+
+  const colorCode = parseInt(sessionStorage.getItem('colorCode'));
+
   // 마우스가 움직이면 버튼을 보이게 하기
   const [isHovered, setIsHovered] = useState(false);
   // 확대 transition
@@ -49,7 +52,11 @@ const Around = () => {
         w="100%"
         h="100vh"
         bgPosition="center bottom"
-        bgImage="/planets/planet_1.png"
+        bgImage={
+          '/planets/planet_' +
+          (colorCode + 1) +
+          '.png'
+        }
         bgSize="cover"
         className={`main-container ${isZoomedIn ? 'zoomed-in' : ''}`}
         position="relative"
