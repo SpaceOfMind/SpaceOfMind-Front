@@ -56,12 +56,17 @@ function useFetchArchiveData() {
 
   const fetchSatellites = useCallback(async () => {
     await axios({
-      method: 'get', url: BASE_URL + '/archive/getAround',
+      method: 'get',
+      url: BASE_URL + '/archive/getAround',
       params: {
         userId: sessionStorage.getItem('userId'),
       },
-      headers: { 'Content-type': 'application/json' },
-    }).then(res => {
+      headers: {
+        'Content-type': 'application/json',
+        Cookie: getCookie('connect.sid'),
+      },
+    })
+      .then(res => {
         if (res.data.result === 'success') {
           console.log('인공위성 정보 가져오기 성공');
           updateSatellite(res.data.arounds);
@@ -80,8 +85,12 @@ function useFetchArchiveData() {
       params: {
         userId: sessionStorage.getItem('userId'),
       },
-      headers: { 'Content-type': 'application/json' },
-    }).then(res => {
+      headers: {
+        'Content-type': 'application/json',
+        Cookie: getCookie('connect.sid'),
+      },
+    })
+      .then(res => {
         if (res.data.result === 'success') {
           console.log('탐사선 정보 가져오기 성공');
           updateProbe(res.data.aways);
@@ -93,7 +102,19 @@ function useFetchArchiveData() {
       });
   }, [updateProbe]);
 
-  return [fetchArchives, fetchSatellites, fetchProbes];
+  const patchArchives = useCallback(async archiveId => {
+    await axios({
+      method: 'patch',
+      url: BASE_URL + '/archive/patchInfo',
+      headers: {
+        'Content-type': 'application/json',
+        Cookie: getCookie('connect.sid'),
+      },
+      data: { archiveId, newOrbitId: -1 },
+    });
+  }, []);
+
+  return [fetchArchives, fetchSatellites, fetchProbes, patchArchives];
 }
 
 export default useFetchArchiveData;

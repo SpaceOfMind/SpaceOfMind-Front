@@ -1,11 +1,13 @@
 import { Image } from '@chakra-ui/image';
 import { Box, Flex } from '@chakra-ui/layout';
 import { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import './Detail.scss';
 import ArchiveContent from '../../components/ArchiveContent';
 import { Button } from '@chakra-ui/button';
 import { ProbeContext } from '../../contexts/probe';
+import useFetchArchiveData from '../../utils/useFetchArchiveData';
+import Header from '../../components/Header';
 
 const DetailAway = () => {
   // TODO: detail away가 처음 마운트 될 때 서버로부터 objectId를 기반으로?? 앵????????
@@ -18,6 +20,9 @@ const DetailAway = () => {
 
   const [showEmpty, setShowEmpty] = useState(true);
   const [showEmptyMore, setShowEmptyMore] = useState(true);
+  const navigate = useNavigate();
+
+  const [, , fetchProbes, patchArchives] = useFetchArchiveData();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -33,6 +38,14 @@ const DetailAway = () => {
     };
   }, []);
 
+  const onClickDelete = async () => {
+    patchArchives(currentProbe.archiveId).then(() => {
+      fetchProbes().then(() => {
+        navigate('/away');
+      });
+    });
+  };
+
   return (
     <Box
       w="100%"
@@ -40,40 +53,49 @@ const DetailAway = () => {
       bgImage="/backgrounds/background.jpg"
       bgSize="cover"
     >
-      {' '}
-      {!showEmpty && (
-        <div
-          className="mount-animation"
-          style={{ position: 'absolute', bottom: 60, left: 100 }}
-        >
-          <Image
-            p="20"
-            src={'/probes/probe_' + (currentProbe.colorCode + 1) + '.png'}
-            style={{
-              transform: `rotate(-30deg)`,
-            }}
-          />
-        </div>
-      )}
-      {!showEmptyMore && (
-        <div
-          className="mount-animation"
-          style={{ position: 'absolute', right: 90, top: 90 }}
-        >
-          <Flex direction="column" gap="16px">
-            <ArchiveContent
-              title={currentProbe.title}
-              content={currentProbe.content}
-              dateTime={currentProbe.createdAt.split('.')[0].replace('T', ' ')}
+      <Flex>
+        <Header selectedMenu={1} />
+        {!showEmpty && (
+          <div
+            className="mount-animation"
+            style={{ position: 'absolute', bottom: 60, left: 100 }}
+          >
+            <Image
+              w="360px"
+              p="20"
+              src={'/probes/probe_' + (currentProbe.colorCode + 1) + '.png'}
+              style={{
+                transform: `rotate(-30deg)`,
+              }}
             />
-            <Flex justify="flex-end" gap="16px">
-              <Button bgColor="whiteAlpha.800" width="100px">
-                삭제하기
-              </Button>
+          </div>
+        )}
+        {!showEmptyMore && (
+          <div
+            className="mount-animation"
+            style={{ position: 'absolute', right: 90, top: 120 }}
+          >
+            <Flex direction="column" gap="16px">
+              <ArchiveContent
+                title={currentProbe.title}
+                content={currentProbe.content}
+                dateTime={currentProbe.createdAt
+                  .split('.')[0]
+                  .replace('T', ' ')}
+              />
+              <Flex justify="flex-end" gap="16px">
+                <Button
+                  bgColor="whiteAlpha.800"
+                  width="100px"
+                  onClick={onClickDelete}
+                >
+                  삭제하기
+                </Button>
+              </Flex>
             </Flex>
-          </Flex>
-        </div>
-      )}
+          </div>
+        )}
+      </Flex>
     </Box>
   );
 };
