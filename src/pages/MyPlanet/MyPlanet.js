@@ -8,16 +8,17 @@ import {
     CardHeader,
     Heading,
     Divider,
-    AbsoluteCenter,
     CardBody,
-    Input,
     Text,
-    Link,
     Button,
     Image
 } from '@chakra-ui/react';
 import './MyPlanet.scss';
+import { useNavigate } from 'react-router-dom';
 import Header from "../../components/Header";
+import axios from 'axios';
+import { getCookie } from '../../../src/utils/cookie';
+import { useCookies } from 'react-cookie';
 
 const MyPlanet = () => {
 
@@ -25,6 +26,42 @@ const MyPlanet = () => {
     const userEmail = sessionStorage.getItem('userEmail');
     const colorCode = parseInt(sessionStorage.getItem('colorCode'));
     const planetCode = sessionStorage.getItem('planetCode');
+
+    const navigate = useNavigate();
+
+    const COOKIE_KEY = 'connect.sid'; // 상수화시킨 쿠키 값을 넣어줬다.
+    const [, , removeCookie] = useCookies([COOKIE_KEY]); // 쓰지 않는 변수는 (공백),처리해주고 removeCookie 옵션만 사용한다
+
+    const onConfirmLogout = async () => {
+        await axios
+        .get('auth/logout', {
+            params: {
+            userId: sessionStorage.getItem('userId'),
+            },
+            headers: { 'Content-type': 'application/json',
+                Cookie: getCookie('connect.sid'),
+            },
+        })
+          .then(res => {
+            if (res.data.result === 'success') {
+                console.log("로그아웃 성공");
+                
+              sessionStorage.removeItem('userId', res.data.userId);
+              sessionStorage.removeItem('userName', res.data.userName);
+              sessionStorage.removeItem('userEmail', res.data.userEmail);
+              sessionStorage.removeItem('colorCode', res.data.colorCode);
+              sessionStorage.removeItem('planetCode', res.data.planetCode);
+
+              removeCookie(COOKIE_KEY, { path: '/' });
+    
+              console.log("세션 스토리지 삭제 완료");
+              navigate('/');
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      };
 
     return (
         <Box
@@ -61,7 +98,7 @@ const MyPlanet = () => {
                         <Stack>
                             <CardHeader>
                                 <Heading size="lg">
-                                    {userName} 님의 행성 정보입니다
+                                    {userName}님의 행성 정보
                                 </Heading>
                                 <Box width="100%" position="relative" padding="5">
                                     <Divider borderColor="gray.300" />
@@ -84,7 +121,7 @@ const MyPlanet = () => {
                                     <Button
                                     width="300px"
                                     bgColor="gray.300"
-                                    // onClick={onConfirmLogin}
+                                    onClick={onConfirmLogout}
                                     >
                                     로그아웃
                                     </Button>
