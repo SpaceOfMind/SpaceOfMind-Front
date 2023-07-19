@@ -170,7 +170,7 @@ const SignUp = () => {
                       </Center>
                       <Text fontSize="md">
                         계정이 이미 있으신가요?{' '}
-                        <Link to="/login">
+                        <Link to="/">
                           <Text as="u">Login</Text>
                         </Link>
                       </Text>
@@ -217,6 +217,7 @@ const SignUp = () => {
                                             : 'transparent'
                                         }
                                         borderRadius="10px"
+                                        _hover={{cursor: 'pointer'}}
                                         onClick={() => {
                                           setColorCode(colorIndex);
                                         }}
@@ -229,7 +230,9 @@ const SignUp = () => {
                             <ModalFooter>
                               <Button
                                 mr="2"
-                                colorScheme="blue"
+                                bg='blue.700'
+                                textColor='white'
+                                _hover={{ backgroundColor: 'blue.900' }}
                                 onClick={onConfirmSignUp}
                                 disabled={colorCode === null}
                               >
