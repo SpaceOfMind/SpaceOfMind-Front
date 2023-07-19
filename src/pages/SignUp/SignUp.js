@@ -221,6 +221,7 @@ const SignUp = () => {
                                             : 'transparent'
                                         }
                                         borderRadius="10px"
+                                        _hover={{cursor: 'pointer'}}
                                         onClick={() => {
                                           setColorCode(colorIndex);
                                         }}
@@ -233,7 +234,9 @@ const SignUp = () => {
                             <ModalFooter>
                               <Button
                                 mr="2"
-                                colorScheme="blue"
+                                bg='blue.700'
+                                textColor='white'
+                                _hover={{ backgroundColor: 'blue.900' }}
                                 onClick={onConfirmSignUp}
                                 disabled={colorCode === null}
                               >
