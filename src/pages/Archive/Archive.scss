@@ -1,3 +1,13 @@
 .using-icon {
   background-color: transparent;
 }
+
+.chrono-container {
+
+  visibility: visible;
+
+  &.empty {
+    visibility: hidden;
+  }
+
+}

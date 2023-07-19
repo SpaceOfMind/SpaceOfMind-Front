@@ -11,6 +11,18 @@ const ShowProbes = () => {
   const navigate = useNavigate();
   const { probes } = useContext(ProbeContext);
 
+  // Fisher-Yates (Knuth) shuffle algorithm
+  function shuffleArray(array) {
+
+    if (Math.random() < 1) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+    return array;
+  }
+
   const positions = [
     { x: '60vw', y: '10vh', degree: 120 },
     { x: '34vw', y: '64vh', degree: 165 },
@@ -25,6 +37,9 @@ const ShowProbes = () => {
     { x: '10vw', y: '40vh', degree: 10 },
   ];
 
+  // Randomize the order of positions array
+  const randomizedPositions = shuffleArray([...positions]);
+
   /* 더미데이터를 받아서 position을 calculate 하도록... 그걸하고 position에 push */
   // const calculatePosition = (orbitId, dateArray) => {};
 
@@ -32,9 +47,9 @@ const ShowProbes = () => {
     return {
       position: {
         colorCode: probe.colorCode,
-        x: positions[index].x,
-        y: positions[index].y,
-        degree: positions[index].degree,
+        x: randomizedPositions[index].x,
+        y: randomizedPositions[index].y,
+        degree: randomizedPositions[index].degree,
       },
       component: (
         <Image

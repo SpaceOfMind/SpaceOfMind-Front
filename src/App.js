@@ -17,6 +17,7 @@ import DetailAway from './pages/DetailObject/DetailAway';
 import { SatelliteProvider } from './contexts/satellite';
 import { ProbeProvider } from './contexts/probe';
 import MyPlanet from './pages/MyPlanet/MyPlanet';
+import BackgroundMusic from './components/BackgroundMusic';
 
 const AppProvider = ({ contexts, children }) =>
   contexts.reduce(
@@ -49,6 +50,7 @@ function App() {
             </Routes>
           </BrowserRouter>
         </ChakraProvider>
+        <BackgroundMusic />
       </CookiesProvider>
     </AppProvider>
   );
