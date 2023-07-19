@@ -44,9 +44,9 @@ class Archive extends Component {
             {JSON.parse(window.sessionStorage.getItem('fetchedContents')).map(
               (item, i) => {
                 return item.isAround ? (
-                  <PiPlanetFill color="#ffffff" width="40px" height="40px" />
+                  <PiPlanetFill key={i} color="#ffffff" width="40px" height="40px" />
                 ) : (
-                  <MdRocketLaunch color="#ffffff" width="20px" height="20px" />
+                  <MdRocketLaunch key={i} color="#ffffff" width="20px" height="20px" />
                 );
               }
             )}
@@ -89,6 +89,7 @@ class Archive extends Component {
                 ? document.documentElement.clientHeight - 84
                 : '400px'
             }
+            className={`chrono-container ${dateItems.length===0 ? 'empty' : ''}`}
           >
             <Chrono
               items={dateItems}
