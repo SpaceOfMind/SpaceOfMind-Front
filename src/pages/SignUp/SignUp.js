@@ -174,7 +174,7 @@ const SignUp = () => {
                       </Center>
                       <Text fontSize="md">
                         계정이 이미 있으신가요?{' '}
-                        <Link to="/login">
+                        <Link to="/">
                           <Text as="u">Login</Text>
                         </Link>
                       </Text>

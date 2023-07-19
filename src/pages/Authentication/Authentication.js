@@ -80,7 +80,7 @@ const Authentication = () => {
     >
       <Center align="center" h="100vh">
         <Stack>
-          <img src="./robot-run.gif" alt="running robot" width="50px" />
+          {/* <img src="./robot-run.gif" alt="running robot" width="50px" /> */}
           <Card w="500px" h="100%" bgColor="whiteAlpha.300">
             <div className="card-wrapper">
               <Stack>
@@ -147,7 +147,7 @@ const Authentication = () => {
               </Stack>
             </div>
           </Card>
-          <Box h="50px" />
+          {/* <Box h="50px" /> */}
         </Stack>
       </Center>
     </Box>
