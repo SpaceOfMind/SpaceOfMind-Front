@@ -209,7 +209,7 @@ export const CreateNewProbeImg = ({ updateCurrentProbeCode }) => {
   return (
     <Box
       onClick={changeProbe}
-      marginLeft={3}
+      marginLeft={7}
       _hover={{ transform: 'scale(1.05)' }}
     >
       {probes[currentProbeIndex]}

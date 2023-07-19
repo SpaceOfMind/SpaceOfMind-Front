@@ -61,7 +61,13 @@ const CreateNewObject = ({ isZoomedIn, handleZoomOut }) => {
       zIndex={2}
       direction="column"
     >
-      <Flex direction="row" zIndex={4} position="absolute" bottom={105} p={5}>
+      <Flex 
+        direction="row" 
+        zIndex={4} 
+        position="relative" 
+        bottom='5%' 
+        p={5} 
+      >
         <Flex
           direction="column"
           m={2}
