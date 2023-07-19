@@ -49,8 +49,9 @@ function App() {
               <Route path="/myPlanet" element={<MyPlanet />} />
             </Routes>
           </BrowserRouter>
+          <BackgroundMusic />
         </ChakraProvider>
-        <BackgroundMusic />
+        {/* <BackgroundMusic /> */}
       </CookiesProvider>
     </AppProvider>
   );
