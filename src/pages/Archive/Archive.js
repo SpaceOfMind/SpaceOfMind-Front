@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
-import axios from 'axios';
 import { Chrono } from 'react-chrono';
-import { BASE_URL } from '../../constant';
 import { getCookie } from '../../utils/cookie';
 import ArchiveItem from '../../components/ArchiveItem/ArchiveItem';
 import Header from '../../components/Header';
+
+import { PiPlanetFill } from 'react-icons/pi';
+import { MdRocketLaunch } from 'react-icons/md';
+
+import './Archive.scss';
 
 // TODO: json parsing 에러 처리
 // local storage에 저장된 데이터가 없는 경우 enable refresh
@@ -25,12 +28,30 @@ class Archive extends Component {
               <ArchiveItem
                 key={i}
                 titleArchive={item.titleArchive}
+                from={item.from ?? ''}
                 contentArchive={item.contentArchive}
               />
             );
           }
         ) || [],
       chronoHeight: document.documentElement.clientHeight - 84,
+      chronoIcons:
+        (
+          <div
+            className="chrono-icons"
+            style={{ backgroundColor: 'transparent' }}
+          >
+            {JSON.parse(window.sessionStorage.getItem('fetchedContents')).map(
+              (item, i) => {
+                return item.isAround ? (
+                  <PiPlanetFill color="#ffffff" width="40px" height="40px" />
+                ) : (
+                  <MdRocketLaunch color="#ffffff" width="20px" height="20px" />
+                );
+              }
+            )}
+          </div>
+        ) || [],
     };
   }
 
@@ -51,7 +72,8 @@ class Archive extends Component {
   }
 
   render() {
-    const { dateItems, customContents, viewportHeight } = this.state;
+    const { dateItems, customContents, chronoIcons, viewportHeight } =
+      this.state;
     return (
       <Box
         w="100%"
@@ -73,7 +95,7 @@ class Archive extends Component {
               mode="VERTICAL_ALTERNATING"
               theme={{
                 primary: '#718fa7',
-                secondary: '#144B71',
+                secondary: 'transparent',
                 cardBgColor: '#C0C4DE',
                 titleColor: '#88a2bd',
                 titleColorActive: '#ffffff',
@@ -81,6 +103,7 @@ class Archive extends Component {
               }}
             >
               {customContents}
+              {chronoIcons}
             </Chrono>
           </Box>
         </Flex>

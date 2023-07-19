@@ -1,8 +1,8 @@
 import '@fontsource/raleway/400.css';
 import '@fontsource/open-sans/700.css';
 
-import React, { useState } from 'react';
-import { ChakraProvider, Box } from '@chakra-ui/react';
+import React from 'react';
+import { ChakraProvider } from '@chakra-ui/react';
 import Authentication from './pages/Authentication/Authentication';
 import theme from './theme';
 
@@ -12,7 +12,8 @@ import { CookiesProvider } from 'react-cookie';
 import Archive from './pages/Archive/Archive';
 import Around from './pages/Around/Around';
 import Away from './pages/Away/Away';
-import DetailObject from './pages/DetailObject/DetailObject';
+import DetailAround from './pages/DetailObject/DetailAround';
+import DetailAway from './pages/DetailObject/DetailAway';
 import { SatelliteProvider } from './contexts/satellite';
 import { ProbeProvider } from './contexts/probe';
 import MyPlanet from './pages/MyPlanet/MyPlanet';
@@ -37,8 +38,9 @@ function App() {
               <Route path="/" element={<Authentication />} />
               <Route
                 path="/detail/around/:objectId"
-                element={<DetailObject />}
+                element={<DetailAround />}
               />
+              <Route path="/detail/away/:objectId" element={<DetailAway />} />
               <Route path="/archive" element={<Archive />} />
               <Route path="/away" element={<Away />} />
               <Route path="/around" element={<Around />} />

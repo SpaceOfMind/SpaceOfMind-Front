@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Button, Flex } from '@chakra-ui/react';
 import './Around.scss';
 import CreateNewObject from '../../components/CreateNewObject';
-import ShowSatellites from '../../components/ShowSatellites';
+import ShowSatellites from '../../components/ShowObject/ShowSatellites';
 import Header from '../../components/Header';
 
 const Around = () => {

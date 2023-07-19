@@ -8,6 +8,7 @@ import {
 } from './Satellites/Satellite';
 import axios from 'axios';
 import useFetchArchiveData from '../utils/useFetchArchiveData';
+import { BASE_URL } from '../constant';
 
 export const CreateNewSatelliteInput = ({
   handleZoomOut,
@@ -39,7 +40,6 @@ export const CreateNewSatelliteInput = ({
 
   // render 할 위성 정보들 가져오기
   const fetchSatellitesToRender = async () => {
-    console.log('Render할 인공위성 정보 가져오기 진행');
     await fetchSatellites();
   };
 
@@ -50,27 +50,20 @@ export const CreateNewSatelliteInput = ({
     const validContent = content !== '';
 
     if (validTitle && validContent) {
-      console.log('인공위성 보내기 진행');
-      console.log(`{ title: ${title}, content: ${content}}`);
-
       const satelliteCode = fetchCurrentSatelliteCode();
 
-      axios
-        .post(
-          '/archive/postInfo',
-          {
-            userId: sessionStorage.getItem('userId'),
-            colorCode: satelliteCode,
-            title: title,
-            content: content,
-            colorCode: satelliteCode,
-            isAround: 1,
-          },
-          {
-            headers: { 'Content-type': 'application/json' },
-            // withCredentials: true,
-          }
-        )
+      axios({
+        method: 'post', 
+        url: BASE_URL + '/archive/postInfo',
+        data:{
+          userId: sessionStorage.getItem('userId'),
+          colorCode: satelliteCode,
+          title: title,
+          content: content,
+          isAround: 1,
+        },             
+        headers: { 'Content-type': 'application/json' },
+      })
         .then(res => {
           if (res.data.result === 'success') {
             console.log('위성 발사 성공');
