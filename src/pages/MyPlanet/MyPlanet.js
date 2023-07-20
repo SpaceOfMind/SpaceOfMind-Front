@@ -84,39 +84,43 @@ const MyPlanet = () => {
             className="my-planet-image"
             zIndex="0"
           />
-          <Card w="500px" bgColor="whiteAlpha.400" zIndex="99">
-            <div className="card-wrapper">
-              <Stack>
-                <CardHeader>
-                  <Heading size="lg">{userName}님의 행성 정보</Heading>
-                  <Box width="100%" position="relative" padding="5">
-                    <Divider borderColor="gray.300" />
-                  </Box>
-                </CardHeader>
-                <CardBody fontSize="20px">
-                  <Center width="100%">
-                    <Stack spacing={6}>
-                      <Center>
-                        <Text>Email: {userEmail}</Text>
-                      </Center>
-                      <Center>
-                        <Text>행성 코드: {planetCode}</Text>
-                      </Center>
-                      <Center paddingTop={10}>
-                        <Button
-                          width="300px"
-                          bgColor="gray.300"
-                          onClick={onConfirmLogout}
-                        >
-                          로그아웃
-                        </Button>
-                      </Center>
-                    </Stack>
-                  </Center>
-                </CardBody>
-              </Stack>
-            </div>
-          </Card>
+          <Stack>
+            <Image src="robot-run.gif" h="50px" w="50px" />
+            <Card w="500px" bgColor="whiteAlpha.400" zIndex="99">
+              <div className="card-wrapper">
+                <Stack>
+                  <CardHeader>
+                    <Heading size="lg">{userName}님의 행성 정보</Heading>
+                    <Box width="100%" position="relative" padding="5">
+                      <Divider borderColor="gray.300" />
+                    </Box>
+                  </CardHeader>
+                  <CardBody fontSize="20px">
+                    <Center width="100%">
+                      <Stack spacing={6}>
+                        <Center>
+                          <Text>Email: {userEmail}</Text>
+                        </Center>
+                        <Center>
+                          <Text>행성 코드: {planetCode}</Text>
+                        </Center>
+                        <Center paddingTop={10}>
+                          <Button
+                            width="300px"
+                            bgColor="gray.300"
+                            onClick={onConfirmLogout}
+                          >
+                            로그아웃
+                          </Button>
+                        </Center>
+                      </Stack>
+                    </Center>
+                  </CardBody>
+                </Stack>
+              </div>
+            </Card>
+            <Box h="50px" />
+          </Stack>
         </Center>
         <Box h="12" />
       </Flex>

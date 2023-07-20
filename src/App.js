@@ -29,7 +29,6 @@ const AppProvider = ({ contexts, children }) =>
   );
 
 function App() {
-
   return (
     <AppProvider contexts={[SatelliteProvider, ProbeProvider]}>
       <CookiesProvider>
